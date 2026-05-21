@@ -43,7 +43,9 @@ FRONTEND_URL=https://${{frontend.RAILWAY_PUBLIC_DOMAIN}}
 
 4. **Networking** → **Generate Domain** (ex. `foyer-utt-api-production.up.railway.app`)
 5. Premier déploiement : l’import `app_db.sql` + ML prend **2 à 5 minutes**. Surveiller les logs.
-6. Vérifier : `https://VOTRE-API.up.railway.app/api/health` → `"data_ready": true`
+6. Vérifier :
+   - `https://VOTRE-API.up.railway.app/api/health/live` → `{"status":"alive"}` (healthcheck Railway)
+   - puis `https://VOTRE-API.up.railway.app/api/health` → `"data_ready": true` (après import, 2–5 min)
 
 ## 4. Service Frontend (web)
 
@@ -91,7 +93,9 @@ railway up --service api
 
 | Problème | Solution |
 |----------|----------|
+| Healthcheck failed / service unavailable | Vérifier `DATABASE_URL=${{Postgres.DATABASE_URL}}` ; redéployer après Postgres actif ; healthcheck = `/api/health/live` |
 | `data_ready: false` longtemps | Consulter les logs API ; import en cours |
+| `db_connected: false` dans `/api/health` | Lier le plugin Postgres au service API |
 | Erreur CORS | Vérifier `FRONTEND_URL` sur l’API = URL exacte du frontend |
 | Frontend « API indisponible » | Vérifier `VITE_API_BASE_URL` (rebuild frontend après changement) |
 | `app_db.sql` introuvable | Root Directory API doit être la **racine** du repo, pas `backend/` |

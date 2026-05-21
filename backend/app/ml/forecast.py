@@ -4,14 +4,12 @@ from datetime import date, timedelta
 
 import numpy as np
 import pandas as pd
-from sklearn.metrics import mean_absolute_error
-from xgboost import XGBRegressor
 
 from app.config import settings
 from app.ml.features import FEATURE_COLUMNS, build_features
 
 
-def _predict_one_day(model: XGBRegressor, history: pd.DataFrame, target_day: date) -> float:
+def _predict_one_day(model, history: pd.DataFrame, target_day: date) -> float:
     history = history.copy()
     history["jour"] = pd.to_datetime(history["jour"])
     row = {
@@ -44,6 +42,9 @@ def forecast_product(
     split = int(len(data) * 0.8)
     train = data.iloc[:split]
     test = data.iloc[split:]
+
+    from sklearn.metrics import mean_absolute_error
+    from xgboost import XGBRegressor
 
     X_train = train[FEATURE_COLUMNS]
     y_train = train["quantite"]
