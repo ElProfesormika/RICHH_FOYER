@@ -28,6 +28,8 @@ export function MlStatusPanel({
   const horizon = ml?.horizon_jours ?? config?.horizon_jours ?? 14;
   const z = config?.z_service ?? 1.65;
   const lead = config?.lead_time_jours ?? 3;
+  const xgb = ml?.produits_xgboost ?? 0;
+  const fallback = ml?.produits_fallback ?? 0;
 
   return (
     <div className="panel ml-status-panel">
@@ -59,8 +61,8 @@ export function MlStatusPanel({
             {formatDt(ml?.date_dernier_calcul_commande ?? kpi?.date_dernier_calcul_ml)}
           </span>
           <span className="ml-stat-sub">
-            {kpi?.produits_avec_prevision ?? ml?.produits_avec_prevision ?? 0} produits
-            avec prévision
+            {kpi?.produits_avec_prevision ?? ml?.produits_avec_prevision ?? 0} prévisions ·{" "}
+            {xgb} XGBoost · {fallback} moyenne mobile
           </span>
         </div>
         <div className="ml-stat">

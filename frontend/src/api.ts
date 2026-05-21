@@ -40,6 +40,10 @@ export interface MlStatus {
   pret: boolean;
   produits_total: number;
   produits_avec_prevision: number;
+  produits_xgboost?: number;
+  produits_fallback?: number;
+  produits_sans_prix_achat?: number;
+  prix_achat_moyen?: number;
   lignes_commande: number;
   montant_commande_eur: number;
   seuil_fournisseur_eur: number;

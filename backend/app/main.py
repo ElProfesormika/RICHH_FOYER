@@ -79,9 +79,20 @@ def _background_init():
         need_import = (
             db.query(Produit).count() == 0 or settings.force_reimport
         )
+        from sqlalchemy import func
+
+        last_montant = (
+            db.query(func.coalesce(func.max(CommandeSuggestion.montant_total), 0))
+            .scalar()
+            or 0
+        )
         need_ml = (
             db.query(Prevision).count() == 0
             or db.query(CommandeSuggestion).count() == 0
+            or (
+                db.query(Prevision).count() > 0
+                and float(last_montant) == 0
+            )
         )
         if need_import:
             if settings.import_source == "app_db":

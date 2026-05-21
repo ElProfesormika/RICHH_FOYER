@@ -5,6 +5,21 @@ import pandas as pd
 
 from app.config import settings
 from app.ml.forecast import compute_safety_stock, rupture_risk
+from app.services.pricing import STOCK_PLANCHER
+
+
+def stock_effectif_commande(stock_actuel: int, demande: float, ss: float) -> int:
+    """Stock S dans Q = D + SS − S.
+
+    Le stock Metro (entrepôt) est souvent bien au-dessus du besoin sur 14 jours,
+    ce qui annule toute commande. On estime alors un stock « rayon » comme en local.
+    """
+    besoin = demande + ss
+    if besoin <= 0:
+        return stock_actuel
+    if stock_actuel > max(besoin * 2.5, 30):
+        return max(STOCK_PLANCHER, int(besoin * 0.6))
+    return stock_actuel
 
 
 def build_order_lines(
@@ -23,14 +38,16 @@ def build_order_lines(
                 p.get("delai", settings.lead_time_days),
             )
         d = p["demande_prevue"]
-        s = p["stock"]
+        s_brut = int(p["stock"])
+        s = stock_effectif_commande(s_brut, d, ss)
         qte = max(0, int(np.ceil(d + ss - s)))
         montant = qte * p["prix_achat"]
         rows.append(
             {
                 "produit": p["nom"],
                 "produit_id": p.get("id"),
-                "stock": s,
+                "stock": s_brut,
+                "stock_commande": s,
                 "demande_prevue": round(d, 2),
                 "stock_securite": round(ss, 2),
                 "qte_commande": qte,

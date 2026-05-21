@@ -27,7 +27,14 @@ from app.models_appdb import (
     AppStock,
     AppTpeCodeArticle,
 )
-from app.services.import_data import PRIX_ACHAT_RATIO, STOCK_PLANCHER, _parse_price
+from app.services.pricing import (
+    PRIX_ACHAT_RATIO,
+    STOCK_PLANCHER,
+    load_csv_price_maps,
+    lookup_csv_price,
+    resolve_prix_achat,
+    resolve_prix_vente,
+)
 from app.services.mysql_dump_parser import parse_datetime, parse_dump_tables
 
 logger = logging.getLogger(__name__)
@@ -106,16 +113,6 @@ NOM_TO_CODE: dict[str, str] = {
 
 def _norm(s: str) -> str:
     return re.sub(r"[^a-z0-9]", "", s.lower())
-
-
-def _load_csv_prices(csv_path: str | None) -> dict[str, float]:
-    path = csv_path or settings.csv_path
-    if not path or not Path(path).is_file():
-        return {}
-    df = pd.read_csv(path, sep=";")
-    df["Tarif"] = df["Tarif TTC"].apply(_parse_price)
-    prices = df.groupby("Produit")["Tarif"].mean().round(2).to_dict()
-    return {str(k): float(v) for k, v in prices.items()}
 
 
 def _find_code(nom: str, tpe_by_norm: dict[str, AppTpeCodeArticle]) -> str | None:
@@ -237,7 +234,7 @@ def import_app_db(
     tpe_list = db.query(AppTpeCodeArticle).all()
     tpe_by_norm = {_norm(t.nom_tpe): t for t in tpe_list}
     tpe_by_code = {t.code_article: t for t in tpe_list}
-    prices = _load_csv_prices(settings.csv_path)
+    exact_prices, norm_prices = load_csv_price_maps(settings.csv_path)
 
     # Ventes par jour / nom TPE
     daily: dict[tuple[date, str], int] = defaultdict(int)
@@ -261,10 +258,13 @@ def import_app_db(
         tpe = tpe_by_code.get(code) if code else None
         stock_row = stock_map.get(code) if code else None
 
-        prix_vente = prices.get(nom, 0.0)
-        if prix_vente <= 0 and tpe:
-            prix_vente = prices.get(tpe.nom_tpe, 0.0)
-        prix_achat = round(prix_vente * PRIX_ACHAT_RATIO, 2) if prix_vente > 0 else 0.0
+        aliases = [tpe.nom_tpe] if tpe else []
+        prix_vente = lookup_csv_price(nom, exact_prices, norm_prices, aliases)
+        prix_vente = resolve_prix_vente(prix_vente)
+        prix_achat = resolve_prix_achat(
+            round(prix_vente * PRIX_ACHAT_RATIO, 2) if prix_vente > 0 else 0.0,
+            prix_vente,
+        )
 
         if stock_row is not None:
             stock_actuel = max(0, int(stock_row.quantite))

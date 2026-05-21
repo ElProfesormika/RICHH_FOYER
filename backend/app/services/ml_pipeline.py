@@ -8,6 +8,27 @@ from app.config import settings
 from app.ml.forecast import compute_safety_stock, forecast_product, rupture_risk
 from app.ml.orders import build_order_lines
 from app.models import CommandeSuggestion, Prevision, Produit, VenteJournaliere
+from app.services.pricing import (
+    load_csv_price_maps,
+    lookup_csv_price,
+    resolve_prix_achat,
+    resolve_prix_vente,
+)
+
+
+def repair_produit_prices(db: Session) -> int:
+    """Réaligne prix depuis le CSV (noms flous) + défauts si manquants."""
+    exact, norm = load_csv_price_maps()
+    updated = 0
+    for produit in db.query(Produit).all():
+        pv_csv = lookup_csv_price(produit.nom, exact, norm)
+        pv = resolve_prix_vente(pv_csv or produit.prix_vente_ttc)
+        pa = resolve_prix_achat(produit.prix_achat, pv)
+        if produit.prix_vente_ttc != pv or produit.prix_achat != pa:
+            produit.prix_vente_ttc = pv
+            produit.prix_achat = pa
+            updated += 1
+    return updated
 
 
 def _daily_df(db: Session, produit_id: int) -> pd.DataFrame | None:
@@ -92,7 +113,10 @@ def rebuild_commande_suggestions(db: Session) -> dict:
                 "id": produit.id,
                 "nom": produit.nom,
                 "stock": produit.stock_actuel,
-                "prix_achat": float(produit.prix_achat),
+                "prix_achat": resolve_prix_achat(
+                    float(produit.prix_achat),
+                    float(produit.prix_vente_ttc),
+                ),
                 "demande_prevue": float(prev.demande_prevue),
                 "stock_securite": float(prev.stock_securite),
                 "sigma": 0,
@@ -132,6 +156,7 @@ def refresh_after_stock_change(db: Session, produit_id: int) -> dict:
 
 
 def run_full_pipeline(db: Session) -> dict:
+    prix_fixes = repair_produit_prices(db)
     db.query(Prevision).delete()
     db.query(CommandeSuggestion).delete()
 
@@ -146,5 +171,6 @@ def run_full_pipeline(db: Session) -> dict:
 
     return {
         "produits_forecast": count,
+        "prix_corriges": prix_fixes,
         **cmd,
     }

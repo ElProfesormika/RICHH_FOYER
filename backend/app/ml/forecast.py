@@ -62,6 +62,9 @@ def forecast_product(
 
     mae = float(mean_absolute_error(y_test, model.predict(X_test))) if len(test) else 0.0
 
+    # Prévisions de prod : ré-entraînement sur tout l'historique (MAE reste sur le hold-out)
+    model.fit(data[FEATURE_COLUMNS], data["quantite"])
+
     history = data[["jour", "quantite"]].copy()
     last_day = pd.to_datetime(history["jour"].max()).date()
     preds = []

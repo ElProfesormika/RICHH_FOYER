@@ -46,6 +46,10 @@ class MlStatusOut(BaseModel):
     pret: bool
     produits_total: int
     produits_avec_prevision: int
+    produits_xgboost: int = 0
+    produits_fallback: int = 0
+    produits_sans_prix_achat: int = 0
+    prix_achat_moyen: float = 0.0
     lignes_commande: int
     montant_commande_eur: float
     seuil_fournisseur_eur: float

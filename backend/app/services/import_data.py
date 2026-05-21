@@ -5,17 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.config import settings
 from app.models import Produit, VenteJournaliere
-
-STOCK_PLANCHER = 5
-PRIX_ACHAT_RATIO = 0.6
-
-
-def _parse_price(val) -> float:
-    if pd.isna(val):
-        return 0.0
-    if isinstance(val, (int, float)):
-        return float(val)
-    return float(str(val).replace(",", "."))
+from app.services.pricing import PRIX_ACHAT_RATIO, STOCK_PLANCHER, _parse_price
 
 
 def import_csv(db: Session, csv_path: str | None = None) -> dict:
