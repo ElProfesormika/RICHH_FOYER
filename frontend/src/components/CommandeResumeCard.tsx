@@ -25,6 +25,12 @@ export function CommandeResumeCard({ commande }: { commande: CommandeResume }) {
         <span className="commande-montant">
           {commande.montant_total.toFixed(2)} EUR
         </span>
+        <span className="commande-meta-inline">
+          {commande.nb_lignes ?? commande.lignes.length} produits ·{" "}
+          {commande.nb_unites_total ??
+            commande.lignes.reduce((s, l) => s + l.qte_commande, 0)}{" "}
+          unités
+        </span>
         <span
           className={`commande-seuil ${commande.seuil_atteint ? "ok" : "warn"}`}
         >

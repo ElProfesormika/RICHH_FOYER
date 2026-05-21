@@ -3,7 +3,7 @@ export function RiskBadge({ risque }: { risque: string }) {
     faible: "OK",
     moyen: "Attention",
     eleve: "Urgent",
-    critique: "Rupture",
+    critique: "Ruptures",
   };
   return (
     <span className={`badge badge-${risque}`}>

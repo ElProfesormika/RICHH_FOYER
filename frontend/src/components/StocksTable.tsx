@@ -7,38 +7,50 @@ export function StocksTable({
   stocks,
   onUpdate,
   horizonJours = 14,
+  filterLabel,
 }: {
   produits: Produit[];
   stocks: StockOverview[];
   onUpdate: (id: number, stock: number) => Promise<void>;
   horizonJours?: number;
+  /** Libellé du filtre risque actif (ex. « Urgent ») */
+  filterLabel?: string;
 }) {
   const [search, setSearch] = useState("");
   const [edit, setEdit] = useState<Record<number, string>>({});
   const [saving, setSaving] = useState<number | null>(null);
 
-  const stockMap = useMemo(
-    () => new Map(stocks.map((s) => [s.produit_id, s])),
-    [stocks]
+  const produitMap = useMemo(
+    () => new Map(produits.map((p) => [p.id, p])),
+    [produits]
   );
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
-    return [...produits]
-      .filter((p) => !q || p.nom.toLowerCase().includes(q))
-      .sort((a, b) => a.nom.localeCompare(b.nom));
-  }, [produits, search]);
+    return [...stocks]
+      .filter(
+        (s) =>
+          !q ||
+          s.produit_nom.toLowerCase().includes(q) ||
+          (produitMap.get(s.produit_id)?.code_article ?? "")
+            .toLowerCase()
+            .includes(q)
+      )
+      .sort((a, b) => a.produit_nom.localeCompare(b.produit_nom));
+  }, [stocks, search, produitMap]);
 
-  const save = async (p: Produit) => {
-    const raw = edit[p.id] ?? String(p.stock_actuel);
+  const save = async (produitId: number) => {
+    const p = produitMap.get(produitId);
+    if (!p) return;
+    const raw = edit[produitId] ?? String(p.stock_actuel);
     const val = parseInt(raw, 10);
     if (Number.isNaN(val) || val < 0) return;
-    setSaving(p.id);
+    setSaving(produitId);
     try {
-      await onUpdate(p.id, val);
+      await onUpdate(produitId, val);
       setEdit((e) => {
         const next = { ...e };
-        delete next[p.id];
+        delete next[produitId];
         return next;
       });
     } finally {
@@ -49,7 +61,10 @@ export function StocksTable({
   return (
     <div className="panel">
       <div className="panel-head-row">
-        <h2>Ajustement manuel des stocks</h2>
+        <h2>
+          Ajustement manuel
+          {filterLabel ? ` — ${filterLabel}` : ""}
+        </h2>
         <input
           type="search"
           className="search-input"
@@ -59,7 +74,9 @@ export function StocksTable({
         />
       </div>
       <p className="panel-desc">
-        Inventaire ou réception : chaque modification recalcule la prévision et la commande en temps réel.
+        {stocks.length} produit{stocks.length > 1 ? "s" : ""} dans ce filtre.
+        Chaque modification recalcule la prévision ({horizonJours} j) et la
+        commande en temps réel.
       </p>
       <div className="panel-scroll" style={{ maxHeight: "50vh" }}>
         <table>
@@ -68,44 +85,59 @@ export function StocksTable({
               <th>Produit</th>
               <th>Stock</th>
               <th>Demande {horizonJours}j</th>
+              <th>Stock secu.</th>
               <th>Risque</th>
               <th>À commander</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {filtered.map((p) => {
-              const s = stockMap.get(p.id);
-              return (
-                <tr key={p.id}>
-                  <td>{p.nom}</td>
-                  <td>
-                    <input
-                      type="number"
-                      min={0}
-                      value={edit[p.id] ?? p.stock_actuel}
-                      onChange={(e) =>
-                        setEdit((x) => ({ ...x, [p.id]: e.target.value }))
-                      }
-                    />
-                  </td>
-                  <td>{s?.demande_prevue_horizon.toFixed(0) ?? "—"}</td>
-                  <td>
-                    {s ? <RiskBadge risque={s.risque_rupture} /> : "—"}
-                  </td>
-                  <td>{s?.qte_commande_suggeree ?? 0}</td>
-                  <td>
-                    <button
-                      className="btn-secondary btn-sm"
-                      onClick={() => save(p)}
-                      disabled={saving === p.id}
-                    >
-                      {saving === p.id ? "…" : "OK"}
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
+            {filtered.length === 0 ? (
+              <tr>
+                <td colSpan={7} className="empty-cell">
+                  Aucun produit pour ce filtre
+                  {search ? " et cette recherche" : ""}.
+                </td>
+              </tr>
+            ) : (
+              filtered.map((s) => {
+                const p = produitMap.get(s.produit_id);
+                return (
+                  <tr key={s.produit_id}>
+                    <td>{s.produit_nom}</td>
+                    <td>
+                      <input
+                        type="number"
+                        min={0}
+                        value={edit[s.produit_id] ?? p?.stock_actuel ?? s.stock_actuel}
+                        onChange={(e) =>
+                          setEdit((x) => ({
+                            ...x,
+                            [s.produit_id]: e.target.value,
+                          }))
+                        }
+                      />
+                    </td>
+                    <td>{s.demande_prevue_horizon.toFixed(0)}</td>
+                    <td>{s.stock_securite.toFixed(0)}</td>
+                    <td>
+                      <RiskBadge risque={s.risque_rupture} />
+                    </td>
+                    <td>{s.qte_commande_suggeree}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn-secondary btn-sm"
+                        onClick={() => save(s.produit_id)}
+                        disabled={saving === s.produit_id || !p}
+                      >
+                        {saving === s.produit_id ? "…" : "Enregistrer"}
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </div>

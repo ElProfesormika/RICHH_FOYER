@@ -26,7 +26,8 @@ import { MlStatusPanel } from "./components/MlStatusPanel";
 import { LoadingState } from "./components/LoadingState";
 import { SaleForm } from "./components/SaleForm";
 import { StockGrid } from "./components/StockGrid";
-import { StocksFilter } from "./components/StocksFilter";
+import { StocksFilter, StockFilterId } from "./components/StocksFilter";
+import { filterStocks, STOCK_FILTERS } from "./utils/stockRisk";
 import { StocksTable } from "./components/StocksTable";
 import { VentesChart } from "./components/VentesChart";
 import { ThemeToggle } from "./components/ThemeToggle";
@@ -34,7 +35,6 @@ import { VentesLive } from "./components/VentesLive";
 import { useTheme } from "./hooks/useTheme";
 
 type Tab = "dashboard" | "stocks" | "commande";
-type StockFilter = "all" | "alertes" | "critique" | "eleve" | "moyen";
 
 const REFRESH_MS = 15000;
 
@@ -52,7 +52,7 @@ export default function App() {
   const [dataLoading, setDataLoading] = useState(false);
   const [apiOnline, setApiOnline] = useState(true);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
-  const [stockFilter, setStockFilter] = useState<StockFilter>("all");
+  const [stockFilter, setStockFilter] = useState<StockFilterId>("all");
 
   const [kpi, setKpi] = useState<DashboardKPI | null>(null);
   const [trend, setTrend] = useState<VenteTrendPoint[]>([]);
@@ -84,8 +84,8 @@ export default function App() {
         api.kpi(),
         api.ventesTrend(120),
         api.topProduits(10),
-        api.stocksOverview(false),
-        api.stocksOverview(true),
+        api.stocksOverview(),
+        api.stocksOverview({ alertesOnly: true }),
         api.ventesRecentes(15),
         api.commande(),
         api.produits(),
@@ -129,27 +129,12 @@ export default function App() {
     await load(true);
   };
 
-  const stockCounts = useMemo(
-    () => ({
-      all: stocks.length,
-      alertes: stocks.filter((s) =>
-        ["critique", "eleve", "moyen"].includes(s.risque_rupture)
-      ).length,
-      critique: stocks.filter((s) => s.risque_rupture === "critique").length,
-      eleve: stocks.filter((s) => s.risque_rupture === "eleve").length,
-      moyen: stocks.filter((s) => s.risque_rupture === "moyen").length,
-    }),
-    [stocks]
+  const filteredStocks = useMemo(
+    () => filterStocks(stocks, stockFilter),
+    [stocks, stockFilter]
   );
 
-  const filteredStocks = useMemo(() => {
-    if (stockFilter === "all") return stocks;
-    if (stockFilter === "alertes")
-      return stocks.filter((s) =>
-        ["critique", "eleve", "moyen"].includes(s.risque_rupture)
-      );
-    return stocks.filter((s) => s.risque_rupture === stockFilter);
-  }, [stocks, stockFilter]);
+  const stockFilterLabel = STOCK_FILTERS.find((f) => f.id === stockFilter)?.label;
 
   const tabs: { id: Tab; label: string }[] = [
     { id: "dashboard", label: "Tableau de bord" },
@@ -217,9 +202,26 @@ export default function App() {
           <div>
             <h1>{tabs.find((t) => t.id === tab)?.label}</h1>
             <p className="topbar-sub">
-              Prévisions XGBoost sur {horizonJours} jours · stock de sécurité z=
-              {config?.z_service ?? 1.65} · seuil fournisseur{" "}
-              {config?.seuil_fournisseur_eur ?? 400} EUR
+              {tab === "stocks" ? (
+                <>
+                  Prévisions XGBoost sur {horizonJours} jours · stock de sécurité
+                  z={config?.z_service ?? 1.65} · délai L={config?.lead_time_jours ?? 3}{" "}
+                  j · seuil fournisseur {config?.seuil_fournisseur_eur ?? 400} EUR
+                  {stockFilter !== "all" && (
+                    <>
+                      {" "}
+                      · filtre : <strong>{stockFilterLabel}</strong> (
+                      {filteredStocks.length}/{stocks.length})
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  Prévisions XGBoost sur {horizonJours} jours · stock de sécurité
+                  z={config?.z_service ?? 1.65} · seuil fournisseur{" "}
+                  {config?.seuil_fournisseur_eur ?? 400} EUR
+                </>
+              )}
             </p>
           </div>
           <div className="topbar-actions">
@@ -272,12 +274,16 @@ export default function App() {
                   <StocksFilter
                     value={stockFilter}
                     onChange={setStockFilter}
-                    counts={stockCounts}
+                    stocks={stocks}
                   />
                   <StockGrid
                     items={filteredStocks}
-                    title="Inventaire"
-                    emptyLabel="Aucun produit pour ce filtre"
+                    title={
+                      stockFilter === "all"
+                        ? "Inventaire"
+                        : `Inventaire — ${stockFilterLabel}`
+                    }
+                    emptyLabel={`Aucun produit en « ${stockFilterLabel ?? stockFilter} »`}
                     horizonJours={horizonJours}
                   />
                   <div className="section-spacer">
@@ -286,6 +292,9 @@ export default function App() {
                       stocks={filteredStocks}
                       onUpdate={handleStockUpdate}
                       horizonJours={horizonJours}
+                      filterLabel={
+                        stockFilter !== "all" ? stockFilterLabel : undefined
+                      }
                     />
                   </div>
                 </>

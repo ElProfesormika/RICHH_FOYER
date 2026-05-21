@@ -119,13 +119,19 @@ export interface VenteResponse {
 export interface CommandeLigne {
   produit_id: number;
   produit_nom: string;
+  code_article?: string | null;
   stock_actuel: number;
+  stock_commande?: number | null;
   demande_prevue: number;
   stock_securite: number;
+  besoin_total?: number;
   qte_commande: number;
   prix_achat: number;
+  prix_vente_ttc?: number;
   montant: number;
   risque_rupture: string;
+  mae?: number | null;
+  modele_prevision?: string;
 }
 
 export interface CommandeResume {
@@ -134,6 +140,10 @@ export interface CommandeResume {
   seuil_fournisseur: number;
   seuil_atteint: boolean;
   date_calcul: string | null;
+  nb_lignes?: number;
+  nb_unites_total?: number;
+  horizon_jours?: number;
+  reference_commande?: string | null;
 }
 
 export interface Produit {
@@ -228,10 +238,15 @@ export const api = {
   health: fetchHealth,
   configMetier: () => fetchJson<ConfigMetier>(`${API}/config/metier`),
   kpi: () => fetchJson<DashboardKPI>(`${API}/dashboard/kpi`),
-  stocksOverview: (alertesOnly = false) =>
-    fetchJson<StockOverview[]>(
-      `${API}/dashboard/stocks-overview?alertes_only=${alertesOnly}`
-    ),
+  stocksOverview: (opts?: { alertesOnly?: boolean; risque?: string }) => {
+    const params = new URLSearchParams();
+    if (opts?.alertesOnly) params.set("alertes_only", "true");
+    if (opts?.risque) params.set("risque", opts.risque);
+    const q = params.toString();
+    return fetchJson<StockOverview[]>(
+      `${API}/dashboard/stocks-overview${q ? `?${q}` : ""}`
+    );
+  },
   ventesTrend: (days = 90) =>
     fetchJson<VenteTrendPoint[]>(`${API}/dashboard/ventes-trend?days=${days}`),
   topProduits: (limit = 12) =>

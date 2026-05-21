@@ -677,6 +677,55 @@
   background: var(--accent-subtle-strong);
 }
 
+.stocks-filter-bar {
+  margin-bottom: 1.25rem;
+}
+
+.filter-active-hint {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.filter-active-hint strong {
+  color: var(--text);
+}
+
+.chip-critique.active,
+.chip.active.chip-critique {
+  background: color-mix(in srgb, #dc3545 15%, var(--card));
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.chip-eleve.active,
+.chip.active.chip-eleve {
+  background: color-mix(in srgb, #e67e22 15%, var(--card));
+  border-color: #e67e22;
+  color: #e67e22;
+}
+
+.chip-moyen.active,
+.chip.active.chip-moyen {
+  background: color-mix(in srgb, #f1c40f 18%, var(--card));
+  border-color: #c9a227;
+  color: #a67c00;
+}
+
+.chip-faible.active,
+.chip.active.chip-faible {
+  background: color-mix(in srgb, #2d8a4e 12%, var(--card));
+  border-color: #2d8a4e;
+  color: #2d8a4e;
+}
+
+.chip-alertes.active,
+.chip.active.chip-alertes {
+  background: color-mix(in srgb, var(--accent) 12%, var(--card));
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .sidebar-footer .theme-toggle {
   width: 100%;
   margin-bottom: 0.25rem;
@@ -687,6 +736,166 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+}
+
+.commande-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 12%, var(--card)),
+    var(--card)
+  );
+  border: 1px solid var(--border);
+}
+
+.commande-brand-name {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+
+.commande-brand-sub {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.commande-header-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.commande-header-meta strong {
+  color: var(--text);
+  margin-right: 0.35rem;
+}
+
+.commande-export-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.commande-kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.commande-kpi {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.commande-kpi-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.commande-kpi-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.commande-kpi-value.accent {
+  color: var(--accent);
+  font-size: 1.35rem;
+}
+
+.commande-kpi-value.ok {
+  color: var(--success, #2d8a4e);
+}
+
+.commande-kpi-value.warn {
+  color: var(--warn, #c47d12);
+}
+
+.commande-kpi-value small {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.commande-table-wrap {
+  max-height: 65vh;
+}
+
+.commande-table {
+  font-size: 0.82rem;
+}
+
+.commande-table th,
+.commande-table td {
+  white-space: nowrap;
+}
+
+.commande-table .cell-produit {
+  white-space: normal;
+  min-width: 140px;
+  max-width: 220px;
+}
+
+.commande-table .cell-ref {
+  font-family: ui-monospace, monospace;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.commande-table .cell-montant {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.commande-tfoot td {
+  background: color-mix(in srgb, var(--accent) 8%, var(--card));
+  font-weight: 700;
+  border-top: 2px solid var(--border);
+}
+
+.modele-tag {
+  display: inline-block;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.modele-xgb {
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--accent);
+}
+
+.modele-fb {
+  background: var(--border);
+  color: var(--muted);
+}
+
+.table-footnote {
+  margin-top: 0.65rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.commande-meta-inline {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0.2rem 0;
 }
 
 .commande-summary {

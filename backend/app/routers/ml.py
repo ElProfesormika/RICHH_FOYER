@@ -4,13 +4,55 @@ from sqlalchemy.orm import Session
 
 from app.config import settings
 from app.database import get_db
+from app.ml.orders import stock_effectif_commande
 from app.models import CommandeSuggestion, Prevision, Produit
+from app.services.pricing import resolve_prix_achat
 from app.schemas import CommandeLigneOut, CommandeResumeOut, MlStatusOut, PrevisionOut
 from app.services.import_data import import_csv
 from app.services.ml_pipeline import run_full_pipeline
 from app.services.ml_status import get_ml_status
 
 router = APIRouter(prefix="/api/ml", tags=["ml"])
+
+
+def _commande_resume_vide(date_calc=None) -> CommandeResumeOut:
+    return CommandeResumeOut(
+        lignes=[],
+        montant_total=0,
+        seuil_fournisseur=settings.seuil_fournisseur,
+        seuil_atteint=False,
+        date_calcul=date_calc,
+        nb_lignes=0,
+        nb_unites_total=0,
+        horizon_jours=settings.forecast_horizon_days,
+        reference_commande=None,
+    )
+
+
+def _build_ligne(cmd, p, prev) -> CommandeLigneOut:
+    demande = float(prev.demande_prevue) if prev else 0.0
+    ss = float(prev.stock_securite) if prev else 0.0
+    besoin = round(demande + ss, 2)
+    stock_cmd = stock_effectif_commande(p.stock_actuel, demande, ss)
+    pa = resolve_prix_achat(float(p.prix_achat), float(p.prix_vente_ttc))
+    mae = float(prev.mae) if prev and prev.mae is not None else None
+    return CommandeLigneOut(
+        produit_id=p.id,
+        produit_nom=p.nom,
+        code_article=p.code_article,
+        stock_actuel=p.stock_actuel,
+        stock_commande=stock_cmd,
+        demande_prevue=demande,
+        stock_securite=ss,
+        besoin_total=besoin,
+        qte_commande=cmd.qte_commande,
+        prix_achat=pa,
+        prix_vente_ttc=float(p.prix_vente_ttc),
+        montant=float(cmd.montant),
+        risque_rupture=prev.risque_rupture if prev else "faible",
+        mae=mae,
+        modele_prevision="xgboost" if mae is not None else "fallback",
+    )
 
 
 @router.post("/import")
@@ -55,13 +97,7 @@ def list_previsions(db: Session = Depends(get_db)):
 def get_commande(db: Session = Depends(get_db)):
     date_calc = db.query(func.max(CommandeSuggestion.date_calcul)).scalar()
     if not date_calc:
-        return CommandeResumeOut(
-            lignes=[],
-            montant_total=0,
-            seuil_fournisseur=settings.seuil_fournisseur,
-            seuil_atteint=False,
-            date_calcul=None,
-        )
+        return _commande_resume_vide()
 
     subq = (
         db.query(
@@ -86,31 +122,13 @@ def get_commande(db: Session = Depends(get_db)):
     )
 
     if not rows:
-        return CommandeResumeOut(
-            lignes=[],
-            montant_total=0,
-            seuil_fournisseur=settings.seuil_fournisseur,
-            seuil_atteint=False,
-            date_calcul=date_calc,
-        )
+        return _commande_resume_vide(date_calc)
 
     montant_total = float(rows[0][0].montant_total)
     seuil_ok = bool(rows[0][0].seuil_atteint)
 
-    lignes = [
-        CommandeLigneOut(
-            produit_id=p.id,
-            produit_nom=p.nom,
-            stock_actuel=p.stock_actuel,
-            demande_prevue=prev.demande_prevue if prev else 0,
-            stock_securite=prev.stock_securite if prev else 0,
-            qte_commande=cmd.qte_commande,
-            prix_achat=p.prix_achat,
-            montant=cmd.montant,
-            risque_rupture=prev.risque_rupture if prev else "faible",
-        )
-        for cmd, p, prev in rows
-    ]
+    lignes = [_build_ligne(cmd, p, prev) for cmd, p, prev in rows]
+    ref = f"CMD-{date_calc.strftime('%Y%m%d-%H%M')}"
 
     return CommandeResumeOut(
         lignes=lignes,
@@ -118,4 +136,8 @@ def get_commande(db: Session = Depends(get_db)):
         seuil_fournisseur=settings.seuil_fournisseur,
         seuil_atteint=seuil_ok,
         date_calcul=date_calc,
+        nb_lignes=len(lignes),
+        nb_unites_total=sum(l.qte_commande for l in lignes),
+        horizon_jours=settings.forecast_horizon_days,
+        reference_commande=ref,
     )

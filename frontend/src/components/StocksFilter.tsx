@@ -1,37 +1,47 @@
-type Filter = "all" | "alertes" | "critique" | "eleve" | "moyen";
+import {
+  STOCK_FILTERS,
+  StockFilterId,
+  stockFilterCounts,
+} from "../utils/stockRisk";
+import type { StockOverview } from "../api";
+
+export type { StockFilterId };
 
 export function StocksFilter({
   value,
   onChange,
-  counts,
+  stocks,
 }: {
-  value: Filter;
-  onChange: (f: Filter) => void;
-  counts: { all: number; alertes: number; critique: number; eleve: number; moyen: number };
+  value: StockFilterId;
+  onChange: (f: StockFilterId) => void;
+  stocks: StockOverview[];
 }) {
-  const items: { id: Filter; label: string; count: number }[] = [
-    { id: "all", label: "Tous", count: counts.all },
-    { id: "alertes", label: "Alertes", count: counts.alertes },
-    { id: "critique", label: "Rupture", count: counts.critique },
-    { id: "eleve", label: "Urgent", count: counts.eleve },
-    { id: "moyen", label: "Attention", count: counts.moyen },
-  ];
+  const counts = stockFilterCounts(stocks);
 
   return (
-    <div className="filter-chips" role="tablist">
-      {items.map((item) => (
-        <button
-          key={item.id}
-          type="button"
-          role="tab"
-          aria-selected={value === item.id}
-          className={`chip ${value === item.id ? "active" : ""}`}
-          onClick={() => onChange(item.id)}
-        >
-          {item.label}
-          <span className="chip-count">{item.count}</span>
-        </button>
-      ))}
+    <div className="stocks-filter-bar">
+      <div className="filter-chips" role="tablist" aria-label="Filtrer par niveau de risque">
+        {STOCK_FILTERS.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            role="tab"
+            aria-selected={value === item.id}
+            className={`chip ${item.chipClass} ${value === item.id ? "active" : ""}`}
+            onClick={() => onChange(item.id)}
+          >
+            {item.label}
+            <span className="chip-count">{counts[item.id]}</span>
+          </button>
+        ))}
+      </div>
+      {value !== "all" && (
+        <p className="filter-active-hint" role="status">
+          Filtre actif :{" "}
+          <strong>{STOCK_FILTERS.find((f) => f.id === value)?.label}</strong> —{" "}
+          {counts[value]} produit{counts[value] > 1 ? "s" : ""}
+        </p>
+      )}
     </div>
   );
 }

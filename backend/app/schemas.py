@@ -78,13 +78,19 @@ class PrevisionOut(BaseModel):
 class CommandeLigneOut(BaseModel):
     produit_id: int
     produit_nom: str
+    code_article: str | None = None
     stock_actuel: int
+    stock_commande: int | None = None
     demande_prevue: float
     stock_securite: float
+    besoin_total: float = 0.0
     qte_commande: int
     prix_achat: float
+    prix_vente_ttc: float = 0.0
     montant: float
     risque_rupture: str
+    mae: float | None = None
+    modele_prevision: str = "fallback"
 
 
 class CommandeResumeOut(BaseModel):
@@ -93,6 +99,10 @@ class CommandeResumeOut(BaseModel):
     seuil_fournisseur: float
     seuil_atteint: bool
     date_calcul: datetime | None
+    nb_lignes: int = 0
+    nb_unites_total: int = 0
+    horizon_jours: int = 14
+    reference_commande: str | None = None
 
 
 class VenteTrendPoint(BaseModel):
