@@ -68,7 +68,7 @@ def _background_init():
         _init_status["loading"] = True
 
     from app.database import SessionLocal
-    from app.models import Produit
+    from app.models import CommandeSuggestion, Produit, Prevision
     from app import models_appdb  # noqa: F401
     from app.services.import_app_db import import_app_db
     from app.services.import_data import import_csv
@@ -79,14 +79,21 @@ def _background_init():
         need_import = (
             db.query(Produit).count() == 0 or settings.force_reimport
         )
+        need_ml = (
+            db.query(Prevision).count() == 0
+            or db.query(CommandeSuggestion).count() == 0
+        )
         if need_import:
             if settings.import_source == "app_db":
-                logger.info("Import app_db.sql + pipeline ML…")
+                logger.info("Import app_db.sql…")
                 import_app_db(db, clear_existing=settings.force_reimport)
             else:
-                logger.info("Import CSV + pipeline ML…")
+                logger.info("Import CSV…")
                 import_csv(db)
-            run_full_pipeline(db)
+        if need_import or need_ml or settings.force_reimport:
+            logger.info("Pipeline ML + commande suggérée…")
+            stats = run_full_pipeline(db)
+            logger.info("ML terminé: %s", stats)
         _init_status["ready"] = True
         logger.info("Initialisation terminée.")
     except Exception as e:

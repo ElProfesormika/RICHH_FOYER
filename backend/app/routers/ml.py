@@ -5,9 +5,10 @@ from sqlalchemy.orm import Session
 from app.config import settings
 from app.database import get_db
 from app.models import CommandeSuggestion, Prevision, Produit
-from app.schemas import CommandeLigneOut, CommandeResumeOut, PrevisionOut
+from app.schemas import CommandeLigneOut, CommandeResumeOut, MlStatusOut, PrevisionOut
 from app.services.import_data import import_csv
 from app.services.ml_pipeline import run_full_pipeline
+from app.services.ml_status import get_ml_status
 
 router = APIRouter(prefix="/api/ml", tags=["ml"])
 
@@ -20,6 +21,11 @@ def trigger_import(db: Session = Depends(get_db)):
 @router.post("/run")
 def trigger_pipeline(db: Session = Depends(get_db)):
     return run_full_pipeline(db)
+
+
+@router.get("/status", response_model=MlStatusOut)
+def ml_status(db: Session = Depends(get_db)):
+    return get_ml_status(db)
 
 
 @router.get("/previsions", response_model=list[PrevisionOut])
@@ -47,6 +53,16 @@ def list_previsions(db: Session = Depends(get_db)):
 
 @router.get("/commande", response_model=CommandeResumeOut)
 def get_commande(db: Session = Depends(get_db)):
+    date_calc = db.query(func.max(CommandeSuggestion.date_calcul)).scalar()
+    if not date_calc:
+        return CommandeResumeOut(
+            lignes=[],
+            montant_total=0,
+            seuil_fournisseur=settings.seuil_fournisseur,
+            seuil_atteint=False,
+            date_calcul=None,
+        )
+
     subq = (
         db.query(
             Prevision.produit_id,
@@ -56,43 +72,45 @@ def get_commande(db: Session = Depends(get_db)):
         .subquery()
     )
 
-    cmds = (
+    rows = (
         db.query(CommandeSuggestion, Produit, Prevision)
         .join(Produit, Produit.id == CommandeSuggestion.produit_id)
         .outerjoin(subq, subq.c.produit_id == Produit.id)
         .outerjoin(Prevision, and_(Prevision.id == subq.c.max_id))
+        .filter(
+            CommandeSuggestion.date_calcul == date_calc,
+            CommandeSuggestion.qte_commande > 0,
+        )
         .order_by(CommandeSuggestion.montant.desc())
         .all()
     )
 
-    if not cmds:
+    if not rows:
         return CommandeResumeOut(
             lignes=[],
             montant_total=0,
             seuil_fournisseur=settings.seuil_fournisseur,
             seuil_atteint=False,
-            date_calcul=None,
+            date_calcul=date_calc,
         )
 
-    date_calc = cmds[0][0].date_calcul
-    montant_total = float(cmds[0][0].montant_total)
-    seuil_ok = bool(cmds[0][0].seuil_atteint)
+    montant_total = float(rows[0][0].montant_total)
+    seuil_ok = bool(rows[0][0].seuil_atteint)
 
-    lignes = []
-    for cmd, p, prev in cmds:
-        lignes.append(
-            CommandeLigneOut(
-                produit_id=p.id,
-                produit_nom=p.nom,
-                stock_actuel=p.stock_actuel,
-                demande_prevue=prev.demande_prevue if prev else 0,
-                stock_securite=prev.stock_securite if prev else 0,
-                qte_commande=cmd.qte_commande,
-                prix_achat=p.prix_achat,
-                montant=cmd.montant,
-                risque_rupture=prev.risque_rupture if prev else "faible",
-            )
+    lignes = [
+        CommandeLigneOut(
+            produit_id=p.id,
+            produit_nom=p.nom,
+            stock_actuel=p.stock_actuel,
+            demande_prevue=prev.demande_prevue if prev else 0,
+            stock_securite=prev.stock_securite if prev else 0,
+            qte_commande=cmd.qte_commande,
+            prix_achat=p.prix_achat,
+            montant=cmd.montant,
+            risque_rupture=prev.risque_rupture if prev else "faible",
         )
+        for cmd, p, prev in rows
+    ]
 
     return CommandeResumeOut(
         lignes=lignes,

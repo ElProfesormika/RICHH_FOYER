@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from app.config import settings
 from app.database import get_db
 from app.models import CommandeSuggestion, Prevision, Produit, Vente, VenteJournaliere
+from app.services.ml_status import get_ml_status
 from app.schemas import (
     DashboardKPI,
     StockOverviewOut,
@@ -36,12 +37,20 @@ def _latest_previsions(db: Session) -> dict[int, Prevision]:
     return {p.produit_id: p for p in rows}
 
 
+def _latest_commande_date(db: Session):
+    return db.query(func.max(CommandeSuggestion.date_calcul)).scalar()
+
+
 def _latest_commandes(db: Session) -> dict[int, CommandeSuggestion]:
+    latest = _latest_commande_date(db)
+    if not latest:
+        return {}
     subq = (
         db.query(
             CommandeSuggestion.produit_id,
             func.max(CommandeSuggestion.id).label("max_id"),
         )
+        .filter(CommandeSuggestion.date_calcul == latest)
         .group_by(CommandeSuggestion.produit_id)
         .subquery()
     )
@@ -64,13 +73,9 @@ def get_kpi(db: Session = Depends(get_db)):
     debut = db.query(func.min(VenteJournaliere.jour)).scalar()
     fin = db.query(func.max(VenteJournaliere.jour)).scalar()
 
-    last_cmd = (
-        db.query(CommandeSuggestion)
-        .order_by(CommandeSuggestion.date_calcul.desc())
-        .first()
-    )
-    montant = float(last_cmd.montant_total) if last_cmd else 0.0
-    seuil_ok = bool(last_cmd.seuil_atteint) if last_cmd else False
+    ml = get_ml_status(db)
+    montant = float(ml["montant_commande_eur"])
+    seuil_ok = bool(ml["seuil_atteint"])
 
     today = date.today()
     ventes_jour = int(
@@ -99,6 +104,10 @@ def get_kpi(db: Session = Depends(get_db)):
         seuil_fournisseur=settings.seuil_fournisseur,
         seuil_atteint=seuil_ok,
         horizon_jours=settings.forecast_horizon_days,
+        ml_pret=bool(ml["pret"]),
+        date_dernier_calcul_ml=ml["date_dernier_calcul_commande"],
+        lignes_commande=int(ml["lignes_commande"]),
+        produits_avec_prevision=int(ml["produits_avec_prevision"]),
     )
 
 

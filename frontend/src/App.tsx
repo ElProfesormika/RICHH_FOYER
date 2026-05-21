@@ -4,6 +4,7 @@ import {
   CommandeResume,
   ConfigMetier,
   DashboardKPI,
+  MlStatus,
   Produit,
   StockOverview,
   TopProduit,
@@ -21,6 +22,7 @@ import {
   IconStock,
 } from "./components/Icons";
 import { KpiCards } from "./components/KpiCards";
+import { MlStatusPanel } from "./components/MlStatusPanel";
 import { LoadingState } from "./components/LoadingState";
 import { SaleForm } from "./components/SaleForm";
 import { StockGrid } from "./components/StockGrid";
@@ -61,6 +63,7 @@ export default function App() {
   const [commande, setCommande] = useState<CommandeResume | null>(null);
   const [produits, setProduits] = useState<Produit[]>([]);
   const [config, setConfig] = useState<ConfigMetier | null>(null);
+  const [mlStatus, setMlStatus] = useState<MlStatus | null>(null);
 
   const horizonJours = config?.horizon_jours ?? kpi?.horizon_jours ?? 14;
 
@@ -77,7 +80,7 @@ export default function App() {
       }
       setDataLoading(false);
 
-      const [k, t, tp, st, al, vl, cmd, prod, cfg] = await Promise.all([
+      const [k, t, tp, st, al, vl, cmd, prod, cfg, ml] = await Promise.all([
         api.kpi(),
         api.ventesTrend(120),
         api.topProduits(10),
@@ -87,6 +90,7 @@ export default function App() {
         api.commande(),
         api.produits(),
         api.configMetier(),
+        api.mlStatus(),
       ]);
       setKpi(k);
       setTrend(t);
@@ -97,6 +101,7 @@ export default function App() {
       setCommande(cmd);
       setProduits(prod);
       setConfig(cfg);
+      setMlStatus(ml);
       setLastUpdate(new Date());
     } catch (e) {
       const msg = e instanceof Error ? e.message : "Erreur de chargement";
@@ -243,12 +248,14 @@ export default function App() {
               {tab === "dashboard" && kpi && (
                 <div className="dashboard-page">
                   <KpiCards kpi={kpi} />
+                  <MlStatusPanel ml={mlStatus} kpi={kpi} config={config} />
                   <div className="dashboard-row-3">
                     <SaleForm produits={produits} onSale={() => load(true)} />
                     <VentesLive ventes={ventesLive} />
-                    {commande && commande.lignes.length > 0 && (
-                      <CommandeResumeCard commande={commande} />
-                    )}
+                    {commande &&
+                      (commande.montant_total > 0 || commande.lignes.length > 0) && (
+                        <CommandeResumeCard commande={commande} />
+                      )}
                   </div>
                   <StockGrid
                     items={alertes}

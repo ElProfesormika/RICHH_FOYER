@@ -73,7 +73,7 @@ def enregistrer_vente(
             )
         )
 
-    refresh_after_stock_change(db, produit_id)
+    ml_stats = refresh_after_stock_change(db, produit_id)
     db.commit()
     db.refresh(produit)
 
@@ -91,4 +91,5 @@ def enregistrer_vente(
         "stock_actuel": produit.stock_actuel,
         "risque_rupture": prev.risque_rupture if prev else "faible",
         "date_vente": now.isoformat(),
+        "ml": ml_stats,
     }

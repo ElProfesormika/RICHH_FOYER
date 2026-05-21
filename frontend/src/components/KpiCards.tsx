@@ -16,7 +16,13 @@ export function KpiCards({ kpi }: { kpi: DashboardKPI }) {
     { label: "Produits", value: String(kpi.total_produits) },
     {
       label: "Commande suggérée",
-      value: `${kpi.montant_commande_suggeree.toFixed(0)} €`,
+      value:
+        kpi.ml_pret && kpi.montant_commande_suggeree > 0
+          ? `${kpi.montant_commande_suggeree.toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €`
+          : "—",
+      sub: kpi.ml_pret
+        ? `${kpi.lignes_commande ?? 0} lignes · seuil ${kpi.seuil_atteint ? "OK" : "R min"}`
+        : "Calcul ML en cours…",
       ok: kpi.seuil_atteint,
     },
     {

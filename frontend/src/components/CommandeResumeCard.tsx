@@ -6,6 +6,18 @@ export function CommandeResumeCard({ commande }: { commande: CommandeResume }) {
     .sort((a, b) => b.montant - a.montant)
     .slice(0, 8);
 
+  if (commande.montant_total <= 0 && commande.lignes.length === 0) {
+    return (
+      <div className="panel commande-card">
+        <h2>Commande fournisseur</h2>
+        <p className="panel-desc">
+          Aucune ligne à commander (stocks suffisants) ou calcul ML pas encore
+          effectué.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="panel commande-card">
       <h2>Commande fournisseur</h2>

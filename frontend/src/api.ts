@@ -28,6 +28,27 @@ export interface DashboardKPI {
   seuil_atteint: boolean;
   alertes_stock: number;
   horizon_jours: number;
+  ml_pret?: boolean;
+  date_dernier_calcul_ml?: string | null;
+  lignes_commande?: number;
+  produits_avec_prevision?: number;
+}
+
+export interface MlStatus {
+  mode: string;
+  description: string;
+  pret: boolean;
+  produits_total: number;
+  produits_avec_prevision: number;
+  lignes_commande: number;
+  montant_commande_eur: number;
+  seuil_fournisseur_eur: number;
+  seuil_atteint: boolean;
+  horizon_jours: number;
+  date_dernier_calcul_commande: string | null;
+  date_dernier_calcul_prevision: string | null;
+  formule_commande: string;
+  formule_stock_securite: string;
 }
 
 export interface ConfigMetier {
@@ -219,6 +240,7 @@ export const api = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ produit_id, quantite }),
     }),
+  mlStatus: () => fetchJson<MlStatus>(`${API}/ml/status`),
   previsions: () => fetchJson<Prevision[]>(`${API}/ml/previsions`),
   commande: () => fetchJson<CommandeResume>(`${API}/ml/commande`),
   produits: () => fetchJson<Produit[]>(`${API}/produits`),

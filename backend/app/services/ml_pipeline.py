@@ -125,10 +125,10 @@ def rebuild_commande_suggestions(db: Session) -> dict:
     }
 
 
-def refresh_after_stock_change(db: Session, produit_id: int) -> None:
+def refresh_after_stock_change(db: Session, produit_id: int) -> dict:
     """Prévision + commande après vente ou ajustement de stock."""
     forecast_produit(db, produit_id)
-    rebuild_commande_suggestions(db)
+    return rebuild_commande_suggestions(db)
 
 
 def run_full_pipeline(db: Session) -> dict:
