@@ -1,5 +1,5 @@
-# Service API — définir « Root Directory » vide (racine du repo) dans Railway
-# Dockerfile : backend/Dockerfile (contexte = racine → inclut app_db.sql)
+# Service unique : API + interface React sur la même URL
+# Root Directory = vide (racine repo) — Dockerfile backend/Dockerfile
 
 [build]
 builder = "DOCKERFILE"

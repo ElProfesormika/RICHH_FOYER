@@ -1,31 +1,18 @@
-# Variables Railway — Foyer_UTT
+# Railway — une seule URL : foyer-utt-production.up.railway.app
 
-## Vous voyez du JSON dans le navigateur ?
-
-C’est **normal** si vous ouvrez l’URL du service **API** (backend).  
-Exemple : `https://xxx-api.up.railway.app/` → `{"app":"Foyer_UTT",...}`
-
-**L’interface graphique** est sur l’URL du service **frontend** (autre domaine).
+L’**interface** et l’**API** sont sur le **même service** :
+- `https://foyer-utt-production.up.railway.app/` → tableau de bord React
+- `https://foyer-utt-production.up.railway.app/api/...` → API
+- `https://foyer-utt-production.up.railway.app/docs` → documentation API
 
 ---
 
-## Où trouver les URLs
+## Variables du service (API unique)
 
-Railway → votre projet → chaque service → **Settings → Networking → Public domain**
-
-| Service | Rôle | Exemple d’URL |
-|---------|------|----------------|
-| **api** (backend) | API + docs | `https://richhfoyer-production.up.railway.app` |
-| **frontend** (web) | **À ouvrir dans Chrome** | `https://richhfoyer-frontend.up.railway.app` |
-| **Postgres** | Base (pas d’URL web) | — |
-
----
-
-## Service API (backend) — Variables
-
-| Variable | Valeur à mettre |
-|----------|-----------------|
-| **DATABASE_URL** | `postgresql://postgres:fiFkVwwyZwFPZuCfBKrfaWuebAKpadhq@kodama.proxy.rlwy.net:20266/railway` *(votre valeur Postgres — correcte)* |
+| Variable | Valeur |
+|----------|--------|
+| **DATABASE_URL** | `postgresql://postgres:...@kodama.proxy.rlwy.net:20266/railway` *(votre URL Postgres)* |
+| **FRONTEND_URL** | `https://foyer-utt-production.up.railway.app` |
 | **APP_DB_SQL_PATH** | `/data/app_db.sql` |
 | **CSV_PATH** | `/data/rapport_vente.csv` |
 | **IMPORT_SOURCE** | `app_db` |
@@ -34,81 +21,28 @@ Railway → votre projet → chaque service → **Settings → Networking → Pu
 | **LEAD_TIME_DAYS** | `3` |
 | **SERVICE_LEVEL_Z** | `1.65` |
 | **FORECAST_HORIZON_DAYS** | `14` |
-| **FRONTEND_URL** | **URL complète du frontend** avec `https://` |
 
-### FRONTEND_URL — 2 options
+**À supprimer / ne pas utiliser** (ancien déploiement 2 services) :
+- `VITE_API_BASE_URL` — inutile : le frontend utilise `/api` sur le même domaine
+- `https://${{frontend.RAILWAY_PUBLIC_DOMAIN}}` — remplacé par l’URL réelle ci-dessus
 
-**Option A** (si le service s’appelle exactement `frontend` sur Railway) :
-
-```
-https://${{frontend.RAILWAY_PUBLIC_DOMAIN}}
-```
-
-**Option B** (recommandée — copier-coller l’URL réelle) :
-
-```
-https://VOTRE-DOMAINE-FRONTEND.up.railway.app
-```
-
-*(Remplacez par le domaine affiché dans Networking du service frontend.)*
+`FRONTEND_URL` peut aussi être laissé vide : Railway remplit via `RAILWAY_PUBLIC_DOMAIN` automatiquement.
 
 ---
 
-## Service Frontend (web) — Variables
+## Après modification
 
-| Variable | Valeur à mettre |
-|----------|-----------------|
-| **VITE_API_BASE_URL** ou **API_BASE_URL** | URL de l’API + `/api` |
-
-**Option A** (référence Railway, service API nommé `api`) :
-
-```
-https://${{api.RAILWAY_PUBLIC_DOMAIN}}/api
-```
-
-**Option B** (recommandée — URL réelle de votre API) :
-
-```
-https://VOTRE-DOMAINE-API.up.railway.app/api
-```
-
-Exemple si l’API est `https://richhfoyer-production.up.railway.app` :
-
-```
-https://richhfoyer-production.up.railway.app/api
-```
-
-Après modification → **Redeploy** le service frontend.
-
----
-
-## Ce qu’il ne faut PAS faire
-
-| Erreur | Pourquoi |
-|--------|----------|
-| Ouvrir l’URL de l’API pour l’UI | Vous voyez seulement du JSON |
-| Mettre `DATABASE_URL` sur le frontend | Inutile et dangereux |
-| Laisser `*******` / vide sur les variables numériques | Mettre les valeurs du tableau |
-| Oublier `https://` | CORS et appels API échouent |
+1. **Commit + push** le code (Dockerfile avec frontend intégré)
+2. **Redeploy** sur Railway
+3. Ouvrir : **https://foyer-utt-production.up.railway.app**
 
 ---
 
 ## Vérifications
 
 ```bash
-# API vivante
-curl https://VOTRE-API.up.railway.app/api/health/live
-
-# Données chargées (après 2–5 min)
-curl https://VOTRE-API.up.railway.app/api/health
-
-# Frontend : ouvrir dans le navigateur
-https://VOTRE-FRONTEND.up.railway.app
+curl https://foyer-utt-production.up.railway.app/api/health/live
+curl https://foyer-utt-production.up.railway.app/api/health
 ```
 
----
-
-## Noms de services Railway
-
-Les références `${{api....}}` et `${{frontend....}}` ne marchent que si les services s’appellent **exactement** `api` et `frontend`.  
-Sinon, utilisez toujours les **URLs complètes** (option B).
+Dans le navigateur : la page doit afficher **Foyer_UTT** (sidebar, KPI), pas du JSON.

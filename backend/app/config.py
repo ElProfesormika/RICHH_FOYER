@@ -1,3 +1,5 @@
+import os
+
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -17,6 +19,19 @@ class Settings(BaseSettings):
     min_history_days: int = 60
     cors_origins: str = "*"
     frontend_url: str | None = None
+
+    @field_validator("frontend_url", mode="before")
+    @classmethod
+    def normalize_frontend_url(cls, v: str | None) -> str | None:
+        if v and str(v).strip() not in ("", "https://", "http://"):
+            u = str(v).strip().rstrip("/")
+            if not u.startswith("http"):
+                u = f"https://{u}"
+            return u
+        domain = os.getenv("RAILWAY_PUBLIC_DOMAIN", "").strip()
+        if domain:
+            return f"https://{domain}"
+        return None
 
     @field_validator("database_url", mode="before")
     @classmethod

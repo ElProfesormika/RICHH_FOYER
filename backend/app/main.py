@@ -1,13 +1,17 @@
 import logging
 import threading
 import time
+from pathlib import Path
 
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
+
+STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
 
 from app.config import settings
 from app.database import Base, engine
@@ -136,16 +140,46 @@ app.include_router(ventes.router)
 app.include_router(ml.router)
 
 
-@app.get("/")
-def root():
-    return {
-        "app": "Foyer_UTT",
-        "message": "API backend — ouvrez l'URL du service FRONTEND dans le navigateur.",
-        "frontend_url": settings.frontend_url,
-        "docs": "/docs",
-        "health": "/api/health",
-        "live": "/api/health/live",
-    }
+def _mount_frontend(application: FastAPI) -> None:
+    """Sert l'interface React sur / (même URL Railway que l'API)."""
+    if not STATIC_DIR.is_dir():
+        logger.warning("Dossier static/ absent — pas d'interface web embarquée.")
+
+        @application.get("/")
+        def api_only_root():
+            return {
+                "app": "Foyer_UTT",
+                "docs": "/docs",
+                "health": "/api/health",
+            }
+
+        return
+
+    assets_dir = STATIC_DIR / "assets"
+    if assets_dir.is_dir():
+        application.mount(
+            "/assets",
+            StaticFiles(directory=assets_dir),
+            name="frontend-assets",
+        )
+
+    logger.info("Interface web servie depuis %s", STATIC_DIR)
+
+    @application.get("/", include_in_schema=False)
+    async def spa_index():
+        return FileResponse(STATIC_DIR / "index.html")
+
+    @application.get("/{path:path}", include_in_schema=False)
+    async def spa_or_static(path: str):
+        if path.startswith("api") or path in ("docs", "openapi.json", "redoc"):
+            raise HTTPException(status_code=404)
+        file_path = STATIC_DIR / path
+        if file_path.is_file():
+            return FileResponse(file_path)
+        return FileResponse(STATIC_DIR / "index.html")
+
+
+_mount_frontend(app)
 
 
 @app.get("/api/health/live")
