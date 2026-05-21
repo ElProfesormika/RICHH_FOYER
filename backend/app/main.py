@@ -5,9 +5,9 @@ from pathlib import Path
 
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 
@@ -140,48 +140,6 @@ app.include_router(ventes.router)
 app.include_router(ml.router)
 
 
-def _mount_frontend(application: FastAPI) -> None:
-    """Sert l'interface React sur / (même URL Railway que l'API)."""
-    if not STATIC_DIR.is_dir():
-        logger.warning("Dossier static/ absent — pas d'interface web embarquée.")
-
-        @application.get("/")
-        def api_only_root():
-            return {
-                "app": "Foyer_UTT",
-                "docs": "/docs",
-                "health": "/api/health",
-            }
-
-        return
-
-    assets_dir = STATIC_DIR / "assets"
-    if assets_dir.is_dir():
-        application.mount(
-            "/assets",
-            StaticFiles(directory=assets_dir),
-            name="frontend-assets",
-        )
-
-    logger.info("Interface web servie depuis %s", STATIC_DIR)
-
-    @application.get("/", include_in_schema=False)
-    async def spa_index():
-        return FileResponse(STATIC_DIR / "index.html")
-
-    @application.get("/{path:path}", include_in_schema=False)
-    async def spa_or_static(path: str):
-        if path.startswith("api") or path in ("docs", "openapi.json", "redoc"):
-            raise HTTPException(status_code=404)
-        file_path = STATIC_DIR / path
-        if file_path.is_file():
-            return FileResponse(file_path)
-        return FileResponse(STATIC_DIR / "index.html")
-
-
-_mount_frontend(app)
-
-
 @app.get("/api/health/live")
 def health_live():
     """Liveness Railway — ne touche pas à la base (répond toujours 200)."""
@@ -218,3 +176,37 @@ def health():
         "error": _init_status["error"] or db_error,
     }
     return JSONResponse(content=body, status_code=200)
+
+
+def _mount_frontend(application: FastAPI) -> None:
+    """Interface React — monté en dernier pour ne pas bloquer /api/*."""
+    if not STATIC_DIR.is_dir():
+        logger.warning("Dossier static/ absent — pas d'interface web embarquée.")
+
+        @application.get("/")
+        def api_only_root():
+            return {
+                "app": "Foyer_UTT",
+                "docs": "/docs",
+                "health": "/api/health",
+            }
+
+        return
+
+    assets_dir = STATIC_DIR / "assets"
+    if assets_dir.is_dir():
+        application.mount(
+            "/assets",
+            StaticFiles(directory=assets_dir),
+            name="frontend-assets",
+        )
+
+    application.mount(
+        "/",
+        StaticFiles(directory=STATIC_DIR, html=True),
+        name="frontend-spa",
+    )
+    logger.info("Interface web servie depuis %s", STATIC_DIR)
+
+
+_mount_frontend(app)
