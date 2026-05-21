@@ -1,0 +1,1424 @@
+INFO:     Started server process [3350108]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     ('127.0.0.1', 47360) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47366) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47376) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47378) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:47386 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47386 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47402 - "GET /api/dashboard/kpi HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47404 - "GET /api/dashboard/top-produits?limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47386 - "GET /api/dashboard/ventes-trend?days=120 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47438 - "GET /api/ventes/recentes?limit=15 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47420 - "GET /api/dashboard/stocks-overview?alertes_only=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47428 - "GET /api/dashboard/stocks-overview?alertes_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47404 - "GET /api/produits HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47438 - "GET /api/dashboard/top-produits?limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47402 - "GET /api/ml/commande HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47420 - "GET /api/dashboard/ventes-trend?days=120 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47428 - "GET /api/ventes/recentes?limit=15 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47386 - "GET /api/dashboard/kpi HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47402 - "GET /api/produits HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47404 - "GET /api/dashboard/stocks-overview?alertes_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47438 - "GET /api/dashboard/stocks-overview?alertes_only=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47420 - "GET /api/ml/commande HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47442 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     ('127.0.0.1', 47458) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47462) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47466) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47472) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47482) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47484) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47494) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47496) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47504) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47520) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47522) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47530) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47532) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47536) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47544) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:47546 - "GET /api/dashboard/overview HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47554 - "GET /api/dashboard/timeseries?bucket_minutes=30&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47564 - "GET /api/dashboard/meter-flow-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47580 - "GET /api/dashboard/meter-flow-per-meter?bucket_minutes=60&points=72 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47594 - "GET /api/dashboard/pressure-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47606 - "GET /api/dashboard/alert-stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47618 - "GET /api/alerts?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47630 - "GET /api/anomalies?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47638 - "GET /api/dashboard/sensors-catalog HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47650 - "GET /api/dashboard/zone-sensors HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47660 - "GET /api/leaks/localizations?limit=30 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47664 - "GET /api/map/zones HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47670 - "GET /api/map/alerts?limit=40 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47686 - "GET /api/map/meters HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47696 - "GET /api/map/sensors HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 47712) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47720) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37520) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37532) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37536) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37546) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37554) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37556) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37572) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37582) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37586) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37594) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37606) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37618) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37628) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37642) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37648) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37662) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37674) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37684) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37698) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37706) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37710) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37712) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37714) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37730) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37744) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:37758 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37772 - "GET /api/dashboard/ventes-trend?days=120 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37786 - "GET /api/dashboard/top-produits?limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37826 - "GET /api/ventes/recentes?limit=15 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37758 - "GET /api/dashboard/kpi HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37812 - "GET /api/dashboard/stocks-overview?alertes_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37800 - "GET /api/dashboard/stocks-overview?alertes_only=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37786 - "GET /api/produits HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37772 - "GET /api/ml/commande HTTP/1.1" 200 OK
+INFO:     ('127.0.0.1', 37842) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37846) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:37848 - "GET /api/dashboard/overview HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37854 - "GET /api/dashboard/timeseries?bucket_minutes=30&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37858 - "GET /api/dashboard/meter-flow-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37860 - "GET /api/dashboard/meter-flow-per-meter?bucket_minutes=60&points=72 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37864 - "GET /api/dashboard/pressure-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37878 - "GET /api/dashboard/alert-stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37892 - "GET /api/alerts?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37904 - "GET /api/anomalies?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37908 - "GET /api/dashboard/sensors-catalog HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37920 - "GET /api/dashboard/zone-sensors HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37930 - "GET /api/leaks/localizations?limit=30 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37946 - "GET /api/map/zones HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37948 - "GET /api/map/alerts?limit=40 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37950 - "GET /api/map/meters HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37956 - "GET /api/map/sensors HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 37962) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37976) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51564) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51570) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51574) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51584) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51586) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51596) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51598) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51608) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51614) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51630) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51634) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51648) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51650) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51658) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51666) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51670) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51686) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51688) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51698) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51700) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51710) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51724) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51740) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51754) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 51760) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:51776 - "GET /api/dashboard/overview HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51788 - "GET /api/dashboard/timeseries?bucket_minutes=30&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51798 - "GET /api/dashboard/meter-flow-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51806 - "GET /api/dashboard/meter-flow-per-meter?bucket_minutes=60&points=72 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51810 - "GET /api/dashboard/pressure-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51822 - "GET /api/dashboard/alert-stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51824 - "GET /api/alerts?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51830 - "GET /api/anomalies?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51836 - "GET /api/dashboard/sensors-catalog HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51846 - "GET /api/dashboard/zone-sensors HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51854 - "GET /api/leaks/localizations?limit=30 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51862 - "GET /api/map/zones HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51878 - "GET /api/map/alerts?limit=40 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51882 - "GET /api/map/meters HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51888 - "GET /api/map/sensors HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 37868) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37874) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37890) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37896) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37912) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37914) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37922) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37932) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37934) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37940) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37942) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37946) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:37958 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37966 - "GET /api/dashboard/top-produits?limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37962 - "GET /api/dashboard/ventes-trend?days=120 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37958 - "GET /api/dashboard/kpi HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37972 - "GET /api/dashboard/stocks-overview?alertes_only=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37982 - "GET /api/dashboard/stocks-overview?alertes_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37988 - "GET /api/ventes/recentes?limit=15 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37966 - "GET /api/ml/commande HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37958 - "GET /api/produits HTTP/1.1" 200 OK
+INFO:     ('127.0.0.1', 37992) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 38004) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 38012) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 38022) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 38028) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 38044) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 38048) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 38058) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 38070) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 38080) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 38082) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 38090) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:38096 - "GET /api/dashboard/overview HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38102 - "GET /api/dashboard/timeseries?bucket_minutes=30&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38118 - "GET /api/dashboard/meter-flow-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38134 - "GET /api/dashboard/meter-flow-per-meter?bucket_minutes=60&points=72 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38150 - "GET /api/dashboard/pressure-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38154 - "GET /api/dashboard/alert-stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38170 - "GET /api/alerts?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38178 - "GET /api/anomalies?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38190 - "GET /api/dashboard/sensors-catalog HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38198 - "GET /api/dashboard/zone-sensors HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38206 - "GET /api/leaks/localizations?limit=30 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38222 - "GET /api/map/zones HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38226 - "GET /api/map/alerts?limit=40 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38240 - "GET /api/map/meters HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:38254 - "GET /api/map/sensors HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 38268) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 38270) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44848) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44862) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44878) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44880) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44882) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44886) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44902) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44904) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44916) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44922) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44936) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44938) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44944) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44960) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44968) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44982) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 44998) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 45004) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 45006) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 45010) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 45014) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 45028) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 45038) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 45040) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:45050 - "GET /api/dashboard/overview HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:45056 - "GET /api/dashboard/timeseries?bucket_minutes=30&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:45058 - "GET /api/dashboard/meter-flow-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:45072 - "GET /api/dashboard/meter-flow-per-meter?bucket_minutes=60&points=72 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:45076 - "GET /api/dashboard/pressure-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:45086 - "GET /api/dashboard/alert-stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:45088 - "GET /api/alerts?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:45092 - "GET /api/anomalies?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:45108 - "GET /api/dashboard/sensors-catalog HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:45118 - "GET /api/dashboard/zone-sensors HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:45134 - "GET /api/leaks/localizations?limit=30 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:45140 - "GET /api/map/zones HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 45094) - "WebSocket /ws/events" 403
+INFO:     127.0.0.1:45156 - "GET /api/map/alerts?limit=40 HTTP/1.1" 404 Not Found
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:45168 - "GET /api/map/meters HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:45174 - "GET /api/map/sensors HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 45180) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 45184) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:49716 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49716 - "GET /api/dashboard/kpi HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49724 - "GET /api/dashboard/ventes-trend?days=120 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49726 - "GET /api/dashboard/top-produits?limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49740 - "GET /api/dashboard/stocks-overview?alertes_only=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49752 - "GET /api/ventes/recentes?limit=15 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49746 - "GET /api/dashboard/stocks-overview?alertes_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49716 - "GET /api/ml/commande HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49724 - "GET /api/produits HTTP/1.1" 200 OK
+INFO:     ('127.0.0.1', 49758) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49760) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49770) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49780) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49788) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49802) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49804) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49820) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49836) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49850) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49864) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49878) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49892) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49898) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49904) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49918) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49928) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49942) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49954) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49956) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49970) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49986) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 49988) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 50004) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 50008) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:50010 - "GET /api/dashboard/overview HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50012 - "GET /api/dashboard/timeseries?bucket_minutes=30&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50018 - "GET /api/dashboard/meter-flow-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50022 - "GET /api/dashboard/meter-flow-per-meter?bucket_minutes=60&points=72 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50038 - "GET /api/dashboard/pressure-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50044 - "GET /api/dashboard/alert-stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50048 - "GET /api/alerts?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50064 - "GET /api/anomalies?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50066 - "GET /api/dashboard/sensors-catalog HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50078 - "GET /api/dashboard/zone-sensors HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50094 - "GET /api/leaks/localizations?limit=30 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50110 - "GET /api/map/zones HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50118 - "GET /api/map/alerts?limit=40 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50130 - "GET /api/map/meters HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50138 - "GET /api/map/sensors HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 50144) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 50146) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37232) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37240) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37242) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37254) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37264) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37266) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37268) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37276) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37286) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37290) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37298) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37302) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37308) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:37318 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37324 - "GET /api/dashboard/ventes-trend?days=120 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37328 - "GET /api/dashboard/top-produits?limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37342 - "GET /api/dashboard/stocks-overview?alertes_only=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37318 - "GET /api/dashboard/kpi HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37356 - "GET /api/dashboard/stocks-overview?alertes_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37358 - "GET /api/ventes/recentes?limit=15 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37324 - "GET /api/ml/commande HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37328 - "GET /api/produits HTTP/1.1" 200 OK
+INFO:     ('127.0.0.1', 37366) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37374) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37376) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37386) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37392) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37398) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37406) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37410) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37414) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37418) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37430) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37436) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:37442 - "GET /api/dashboard/overview HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37446 - "GET /api/dashboard/timeseries?bucket_minutes=30&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37456 - "GET /api/dashboard/meter-flow-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37470 - "GET /api/dashboard/meter-flow-per-meter?bucket_minutes=60&points=72 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37486 - "GET /api/dashboard/pressure-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37490 - "GET /api/dashboard/alert-stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37492 - "GET /api/alerts?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37504 - "GET /api/anomalies?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37520 - "GET /api/dashboard/sensors-catalog HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37530 - "GET /api/dashboard/zone-sensors HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37532 - "GET /api/leaks/localizations?limit=30 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37534 - "GET /api/map/zones HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37544 - "GET /api/map/alerts?limit=40 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37558 - "GET /api/map/meters HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37566 - "GET /api/map/sensors HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 37578) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54722) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54724) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54740) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54750) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54762) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54772) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54784) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54798) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54800) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54802) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54806) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54818) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54832) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54846) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54852) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54868) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54876) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54888) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54902) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54908) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54910) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54922) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54924) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54936) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54942) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54958) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54970) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 54974) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:54984 - "GET /api/dashboard/overview HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55000 - "GET /api/dashboard/timeseries?bucket_minutes=30&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55004 - "GET /api/dashboard/meter-flow-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55018 - "GET /api/dashboard/meter-flow-per-meter?bucket_minutes=60&points=72 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55034 - "GET /api/dashboard/pressure-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55046 - "GET /api/dashboard/alert-stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55048 - "GET /api/alerts?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55064 - "GET /api/anomalies?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55066 - "GET /api/dashboard/sensors-catalog HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55074 - "GET /api/dashboard/zone-sensors HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55090 - "GET /api/leaks/localizations?limit=30 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55098 - "GET /api/map/zones HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55114 - "GET /api/map/alerts?limit=40 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55122 - "GET /api/map/meters HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55136 - "GET /api/map/sensors HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 55148) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:33836 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33842 - "GET /api/dashboard/ventes-trend?days=120 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33836 - "GET /api/dashboard/kpi HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33858 - "GET /api/dashboard/top-produits?limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33902 - "GET /api/ventes/recentes?limit=15 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33890 - "GET /api/dashboard/stocks-overview?alertes_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33874 - "GET /api/dashboard/stocks-overview?alertes_only=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33836 - "GET /api/produits HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33842 - "GET /api/ml/commande HTTP/1.1" 200 OK
+INFO:     ('127.0.0.1', 33904) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 33920) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 33934) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 33942) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 33954) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 33956) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 33972) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 33974) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 33986) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 34002) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 34006) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 34020) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 34034) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 34042) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 34046) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 34048) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 34064) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 34076) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 34092) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 34106) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 34110) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 34126) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:34136 - "GET /api/dashboard/overview HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34152 - "GET /api/dashboard/timeseries?bucket_minutes=30&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34162 - "GET /api/dashboard/meter-flow-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34168 - "GET /api/dashboard/meter-flow-per-meter?bucket_minutes=60&points=72 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34176 - "GET /api/dashboard/pressure-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34182 - "GET /api/dashboard/alert-stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34198 - "GET /api/alerts?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34214 - "GET /api/anomalies?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34220 - "GET /api/dashboard/sensors-catalog HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34222 - "GET /api/dashboard/zone-sensors HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34238 - "GET /api/leaks/localizations?limit=30 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34242 - "GET /api/map/zones HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34246 - "GET /api/map/alerts?limit=40 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34254 - "GET /api/map/meters HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:34270 - "GET /api/map/sensors HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 34274) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37106) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37116) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37124) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37134) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37144) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37146) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37158) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37162) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37174) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37184) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37188) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37192) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37194) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37200) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37214) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:37220 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37230 - "GET /api/dashboard/ventes-trend?days=120 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37220 - "GET /api/dashboard/kpi HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37236 - "GET /api/dashboard/top-produits?limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37256 - "GET /api/dashboard/stocks-overview?alertes_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37252 - "GET /api/dashboard/stocks-overview?alertes_only=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37266 - "GET /api/ventes/recentes?limit=15 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37256 - "GET /api/produits HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37230 - "GET /api/ml/commande HTTP/1.1" 200 OK
+INFO:     ('127.0.0.1', 37282) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37292) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37294) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37296) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37298) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37304) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37312) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37314) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37328) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37330) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 37346) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:37350 - "GET /api/dashboard/overview HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37364 - "GET /api/dashboard/timeseries?bucket_minutes=30&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37366 - "GET /api/dashboard/meter-flow-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37376 - "GET /api/dashboard/meter-flow-per-meter?bucket_minutes=60&points=72 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37378 - "GET /api/dashboard/pressure-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37388 - "GET /api/dashboard/alert-stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37396 - "GET /api/alerts?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37404 - "GET /api/anomalies?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37412 - "GET /api/dashboard/sensors-catalog HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37428 - "GET /api/dashboard/zone-sensors HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37440 - "GET /api/leaks/localizations?limit=30 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37452 - "GET /api/map/zones HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37462 - "GET /api/map/alerts?limit=40 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37476 - "GET /api/map/meters HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:37492 - "GET /api/map/sensors HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 37500) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35214) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35222) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35236) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35248) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35262) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35270) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35286) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35300) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35310) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35314) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35320) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35336) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35352) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35368) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35374) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35378) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35392) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35408) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35412) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35418) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35430) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35436) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35444) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 35452) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:35456 - "GET /api/dashboard/overview HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:35466 - "GET /api/dashboard/timeseries?bucket_minutes=30&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:35474 - "GET /api/dashboard/meter-flow-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:35476 - "GET /api/dashboard/meter-flow-per-meter?bucket_minutes=60&points=72 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:35480 - "GET /api/dashboard/pressure-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:35490 - "GET /api/dashboard/alert-stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:35494 - "GET /api/alerts?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:35508 - "GET /api/anomalies?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:35516 - "GET /api/dashboard/sensors-catalog HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:35528 - "GET /api/dashboard/zone-sensors HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:35532 - "GET /api/leaks/localizations?limit=30 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:35546 - "GET /api/map/zones HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:35548 - "GET /api/map/alerts?limit=40 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:35550 - "GET /api/map/meters HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:35560 - "GET /api/map/sensors HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 35574) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36496) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36502) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:36518 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36532 - "GET /api/dashboard/top-produits?limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36518 - "GET /api/dashboard/kpi HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36562 - "GET /api/ventes/recentes?limit=15 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36528 - "GET /api/dashboard/ventes-trend?days=120 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36550 - "GET /api/dashboard/stocks-overview?alertes_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36536 - "GET /api/dashboard/stocks-overview?alertes_only=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36532 - "GET /api/produits HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36518 - "GET /api/ml/commande HTTP/1.1" 200 OK
+INFO:     ('127.0.0.1', 36566) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36582) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36596) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36602) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36606) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36622) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36624) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36632) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36638) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36644) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36652) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36660) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36662) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36670) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36674) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36688) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36700) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36708) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36720) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36726) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36738) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36746) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36756) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36772) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 36784) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:36786 - "GET /api/dashboard/overview HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:36802 - "GET /api/dashboard/timeseries?bucket_minutes=30&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:36812 - "GET /api/dashboard/meter-flow-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:36824 - "GET /api/dashboard/meter-flow-per-meter?bucket_minutes=60&points=72 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:36830 - "GET /api/dashboard/pressure-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:36844 - "GET /api/dashboard/alert-stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:36856 - "GET /api/alerts?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:36864 - "GET /api/anomalies?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:36866 - "GET /api/dashboard/sensors-catalog HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:36876 - "GET /api/dashboard/zone-sensors HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:36886 - "GET /api/leaks/localizations?limit=30 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:36888 - "GET /api/map/zones HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:36896 - "GET /api/map/alerts?limit=40 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:36898 - "GET /api/map/meters HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:36904 - "GET /api/map/sensors HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 55400) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55410) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55426) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55430) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55446) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55450) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55454) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55468) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55478) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55482) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55490) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55506) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55508) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:55516 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55532 - "GET /api/dashboard/top-produits?limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55516 - "GET /api/dashboard/kpi HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55518 - "GET /api/dashboard/ventes-trend?days=120 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55558 - "GET /api/dashboard/stocks-overview?alertes_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55544 - "GET /api/dashboard/stocks-overview?alertes_only=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55564 - "GET /api/ventes/recentes?limit=15 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55532 - "GET /api/ml/commande HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55516 - "GET /api/produits HTTP/1.1" 200 OK
+INFO:     ('127.0.0.1', 55580) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55582) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55592) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55608) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55620) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55628) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55642) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55652) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55656) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55658) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55666) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55682) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:55696 - "GET /api/dashboard/overview HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55712 - "GET /api/dashboard/timeseries?bucket_minutes=30&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55726 - "GET /api/dashboard/meter-flow-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55742 - "GET /api/dashboard/meter-flow-per-meter?bucket_minutes=60&points=72 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55758 - "GET /api/dashboard/pressure-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55772 - "GET /api/dashboard/alert-stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55784 - "GET /api/alerts?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55790 - "GET /api/anomalies?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55792 - "GET /api/dashboard/sensors-catalog HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55800 - "GET /api/dashboard/zone-sensors HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55814 - "GET /api/leaks/localizations?limit=30 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55830 - "GET /api/map/zones HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55832 - "GET /api/map/alerts?limit=40 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55842 - "GET /api/map/meters HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55854 - "GET /api/map/sensors HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 55866) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 55878) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47412) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47418) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47430) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47444) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47446) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47458) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47462) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47468) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47472) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47486) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47494) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47508) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47512) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47516) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47532) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47538) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47544) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47558) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47560) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47572) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47576) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47588) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47598) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47602) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47616) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:47620 - "GET /api/dashboard/overview HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47624 - "GET /api/dashboard/timeseries?bucket_minutes=30&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47634 - "GET /api/dashboard/meter-flow-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47646 - "GET /api/dashboard/meter-flow-per-meter?bucket_minutes=60&points=72 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47650 - "GET /api/dashboard/pressure-series?bucket_minutes=60&points=24 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47664 - "GET /api/dashboard/alert-stats HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47668 - "GET /api/alerts?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47672 - "GET /api/anomalies?limit=15 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47686 - "GET /api/dashboard/sensors-catalog HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47700 - "GET /api/dashboard/zone-sensors HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47714 - "GET /api/leaks/localizations?limit=30 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47720 - "GET /api/map/zones HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47734 - "GET /api/map/alerts?limit=40 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47746 - "GET /api/map/meters HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47750 - "GET /api/map/sensors HTTP/1.1" 404 Not Found
+INFO:     ('127.0.0.1', 47754) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 47770) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     ('127.0.0.1', 52336) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:52338 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     ('127.0.0.1', 52350) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:52356 - "GET /api/dashboard/ventes-trend?days=120 HTTP/1.1" 200 OK
+INFO:     ('127.0.0.1', 52388) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed
+INFO:     127.0.0.1:52338 - "GET /api/dashboard/kpi HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52370 - "GET /api/dashboard/stocks-overview?alertes_only=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52372 - "GET /api/ventes/recentes?limit=15 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52358 - "GET /api/dashboard/top-produits?limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52366 - "GET /api/dashboard/stocks-overview?alertes_only=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52356 - "GET /api/ml/commande HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52372 - "GET /api/produits HTTP/1.1" 200 OK
+INFO:     ('127.0.0.1', 52402) - "WebSocket /ws/events" 403
+INFO:     connection rejected (403 Forbidden)
+INFO:     connection closed

@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: foyer
+      POSTGRES_PASSWORD: foyer_secret
+      POSTGRES_DB: foyer_stock
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U foyer -d foyer_stock"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://foyer:foyer_secret@db:5432/foyer_stock
+      CSV_PATH: /data/Rapport vente.csv
+      SEUIL_FOURNISSEUR: "400"
+      LEAD_TIME_DAYS: "3"
+      SERVICE_LEVEL_Z: "1.65"
+      FORECAST_HORIZON_DAYS: "7"
+    volumes:
+      - ./Rapport vente.csv:/data/Rapport vente.csv:ro
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:

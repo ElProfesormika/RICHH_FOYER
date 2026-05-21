@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+node_modules/
+frontend/dist/
+backend/.venv/
+pgdata/
+*.egg-info/

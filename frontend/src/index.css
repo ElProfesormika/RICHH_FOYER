@@ -1,0 +1,213 @@
+/* Mode nuit (defaut) */
+:root,
+[data-theme="dark"] {
+  --bg: #0c1017;
+  --surface: #151d2b;
+  --surface2: #1e2a3d;
+  --border: #2a3a52;
+  --text: #eef2f7;
+  --muted: #8a9bb3;
+  --accent: #4a9eff;
+  --accent-hover: #6bb0ff;
+  --accent-dim: #2d6cb5;
+  --accent-subtle: rgba(74, 158, 255, 0.15);
+  --accent-subtle-strong: rgba(74, 158, 255, 0.25);
+  --success: #3ecf8e;
+  --warning: #e5b84a;
+  --danger: #ef6b6b;
+  --success-bg: rgba(62, 207, 142, 0.2);
+  --warning-bg: rgba(229, 184, 74, 0.2);
+  --danger-bg: rgba(239, 107, 107, 0.2);
+  --error-bg: rgba(239, 107, 107, 0.15);
+  --error-border: rgba(239, 107, 107, 0.3);
+  --info-bg: rgba(74, 158, 255, 0.12);
+  --info-border: rgba(74, 158, 255, 0.25);
+  --row-hover: rgba(74, 158, 255, 0.05);
+  --kpi-gradient-end: #1a2a3d;
+  --chart-grid: #2d3f56;
+  --chart-text: #8b9cb3;
+  --chart-tooltip-bg: #151d2b;
+  --chart-tooltip-border: #2a3a52;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --radius: 10px;
+  color-scheme: dark;
+}
+
+/* Mode jour */
+[data-theme="light"] {
+  --bg: #f0f2f6;
+  --surface: #ffffff;
+  --surface2: #eef1f6;
+  --border: #d4dbe6;
+  --text: #1a2332;
+  --muted: #5c6b82;
+  --accent: #1d6fd8;
+  --accent-hover: #1558ad;
+  --accent-dim: #124a8f;
+  --accent-subtle: rgba(29, 111, 216, 0.1);
+  --accent-subtle-strong: rgba(29, 111, 216, 0.18);
+  --success: #0d9f6e;
+  --warning: #b8860b;
+  --danger: #d63b3b;
+  --success-bg: rgba(13, 159, 110, 0.12);
+  --warning-bg: rgba(184, 134, 11, 0.12);
+  --danger-bg: rgba(214, 59, 59, 0.12);
+  --error-bg: rgba(214, 59, 59, 0.08);
+  --error-border: rgba(214, 59, 59, 0.25);
+  --info-bg: rgba(29, 111, 216, 0.08);
+  --info-border: rgba(29, 111, 216, 0.2);
+  --row-hover: rgba(29, 111, 216, 0.06);
+  --kpi-gradient-end: #e8eef6;
+  --chart-grid: #dce3ed;
+  --chart-text: #5c6b82;
+  --chart-tooltip-bg: #ffffff;
+  --chart-tooltip-border: #d4dbe6;
+  --shadow: 0 1px 4px rgba(26, 35, 50, 0.08);
+  color-scheme: light;
+}
+
+:root {
+  font-family: "DM Sans", system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.15s, transform 0.1s, border-color 0.15s;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-secondary {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--border);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.badge-faible {
+  background: var(--success-bg);
+  color: var(--success);
+}
+.badge-moyen {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+.badge-eleve,
+.badge-critique {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th,
+td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+tr:hover td {
+  background: var(--row-hover);
+}
+
+input[type="number"],
+input[type="search"],
+select {
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+}
+
+input[type="number"] {
+  width: 72px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--accent-subtle-strong);
+}
+
+.panel,
+.sidebar,
+.kpi-card,
+.stock-card,
+.chip {
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
