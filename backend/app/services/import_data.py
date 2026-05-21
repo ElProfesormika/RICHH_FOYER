@@ -6,6 +6,9 @@ from sqlalchemy.orm import Session
 from app.config import settings
 from app.models import Produit, VenteJournaliere
 
+STOCK_PLANCHER = 5
+PRIX_ACHAT_RATIO = 0.6
+
 
 def _parse_price(val) -> float:
     if pd.isna(val):
@@ -33,7 +36,7 @@ def import_csv(db: Session, csv_path: str | None = None) -> dict:
     for _, row in produits_df.iterrows():
         nom = row["Produit"]
         prix_vente = round(row["prix_vente"], 2)
-        prix_achat = round(prix_vente * 0.6, 2)
+        prix_achat = round(prix_vente * PRIX_ACHAT_RATIO, 2)
         produit = db.query(Produit).filter(Produit.nom == nom).first()
         if produit:
             produit.prix_vente_ttc = prix_vente
@@ -41,7 +44,10 @@ def import_csv(db: Session, csv_path: str | None = None) -> dict:
                 produit.prix_achat = prix_achat
         else:
             moy_jour = int(row["ventes"]) / jours_periode
-            stock_init = max(5, int(moy_jour * 7))
+            stock_init = max(
+                STOCK_PLANCHER,
+                int(moy_jour * settings.forecast_horizon_days),
+            )
             db.add(
                 Produit(
                     nom=nom,

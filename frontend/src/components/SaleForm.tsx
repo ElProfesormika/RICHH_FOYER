@@ -56,7 +56,7 @@ export function SaleForm({
     <div className="panel sale-form">
       <h2>Enregistrer une vente</h2>
       <p className="panel-desc">
-        Chaque vente met à jour le stock et le niveau de risque automatiquement.
+        Chaque vente recalcule la prévision et la commande suggérée en temps réel.
       </p>
       <form onSubmit={submit} className="sale-form-stack">
         <label>

@@ -98,6 +98,7 @@ def get_kpi(db: Session = Depends(get_db)):
         montant_commande_suggeree=montant,
         seuil_fournisseur=settings.seuil_fournisseur,
         seuil_atteint=seuil_ok,
+        horizon_jours=settings.forecast_horizon_days,
     )
 
 
@@ -118,8 +119,9 @@ def stocks_overview(
         demande = float(prev.demande_prevue) if prev else 0.0
         ss = float(prev.stock_securite) if prev else 0.0
         risque_val = prev.risque_rupture if prev else "faible"
+        horizon = settings.forecast_horizon_days
         couverture = (
-            round(p.stock_actuel / (demande / 7), 1) if demande > 0 else 99.0
+            round(p.stock_actuel / (demande / horizon), 1) if demande > 0 else 99.0
         )
 
         if alertes_only and risque_val not in ("critique", "eleve", "moyen"):
@@ -133,7 +135,7 @@ def stocks_overview(
                 produit_nom=p.nom,
                 stock_actuel=p.stock_actuel,
                 prix_vente_ttc=p.prix_vente_ttc,
-                demande_prevue_7j=demande,
+                demande_prevue_horizon=demande,
                 stock_securite=ss,
                 qte_commande_suggeree=cmd.qte_commande if cmd else 0,
                 risque_rupture=risque_val,
@@ -144,7 +146,7 @@ def stocks_overview(
     result.sort(
         key=lambda x: (
             RISK_ORDER.get(x.risque_rupture, 4),
-            -x.demande_prevue_7j,
+            -x.demande_prevue_horizon,
         )
     )
     return result

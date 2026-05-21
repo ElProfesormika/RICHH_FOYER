@@ -11,6 +11,9 @@ class Produit(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     nom: Mapped[str] = mapped_column(String(255), unique=True, index=True)
+    code_article: Mapped[str | None] = mapped_column(String(20), nullable=True, index=True)
+    type_produit: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    debit_factor: Mapped[float] = mapped_column(Float, default=1.0)
     prix_vente_ttc: Mapped[float] = mapped_column(Float, default=0.0)
     prix_achat: Mapped[float] = mapped_column(Float, default=0.0)
     stock_actuel: Mapped[int] = mapped_column(Integer, default=0)
@@ -52,7 +55,7 @@ class Prevision(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     produit_id: Mapped[int] = mapped_column(ForeignKey("produits.id"), index=True)
     date_calcul: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
-    horizon_jours: Mapped[int] = mapped_column(Integer, default=7)
+    horizon_jours: Mapped[int] = mapped_column(Integer, default=14)
     demande_prevue: Mapped[float] = mapped_column(Float)
     mae: Mapped[float | None] = mapped_column(Float, nullable=True)
     stock_securite: Mapped[float] = mapped_column(Float, default=0.0)

@@ -2,7 +2,7 @@ import { StockOverview } from "../api";
 import { RiskBadge } from "./RiskBadge";
 
 function stockPercent(item: StockOverview) {
-  const besoin = item.demande_prevue_7j + item.stock_securite;
+  const besoin = item.demande_prevue_horizon + item.stock_securite;
   if (besoin <= 0) return 100;
   return Math.min(100, Math.round((item.stock_actuel / besoin) * 100));
 }
@@ -12,11 +12,13 @@ export function StockGrid({
   compact = false,
   title = "Vue stocks",
   emptyLabel = "Aucun produit",
+  horizonJours = 14,
 }: {
   items: StockOverview[];
   compact?: boolean;
   title?: string;
   emptyLabel?: string;
+  horizonJours?: number;
 }) {
   const list = compact ? items.slice(0, 12) : items;
 
@@ -25,7 +27,8 @@ export function StockGrid({
       <h2>{title}</h2>
       {!compact && (
         <p className="panel-desc">
-          Couverture estimée sur 7 jours, mise à jour à chaque vente enregistrée.
+          Couverture estimée sur {horizonJours} jours, mise à jour à chaque vente
+          enregistrée.
         </p>
       )}
       {list.length === 0 ? (

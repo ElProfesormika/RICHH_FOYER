@@ -3,7 +3,17 @@ import { CommandeResume } from "../api";
 import { downloadCsv } from "../utils/exportCsv";
 import { RiskBadge } from "./RiskBadge";
 
-export function CommandePanel({ commande }: { commande: CommandeResume }) {
+export function CommandePanel({
+  commande,
+  horizonJours = 14,
+  zService = 1.65,
+  leadTimeJours = 3,
+}: {
+  commande: CommandeResume;
+  horizonJours?: number;
+  zService?: number;
+  leadTimeJours?: number;
+}) {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState<"montant" | "risque" | "nom">("montant");
 
@@ -39,7 +49,7 @@ export function CommandePanel({ commande }: { commande: CommandeResume }) {
       [
         "Produit",
         "Stock",
-        "Demande_7j",
+        `Demande_${horizonJours}j`,
         "Stock_securite",
         "Qte_commande",
         "Prix_achat",
@@ -98,10 +108,11 @@ export function CommandePanel({ commande }: { commande: CommandeResume }) {
           <h2>Règles de calcul</h2>
           <ul className="formula-list">
             <li>
-              <strong>SS</strong> = z x sigma x racine(L), z = 1,65 (95 %)
+              <strong>SS</strong> = z × σ × √L — z = {zService} (95 %), L ={" "}
+              {leadTimeJours} j
             </li>
             <li>
-              <strong>Q</strong> = D + SS - S sur 7 jours
+              <strong>Q</strong> = D + SS − S — D sur {horizonJours} jours
             </li>
             <li>
               Si montant &lt; 400 EUR, application du ratio R_min
@@ -151,7 +162,7 @@ export function CommandePanel({ commande }: { commande: CommandeResume }) {
               <tr>
                 <th>Produit</th>
                 <th>Stock</th>
-                <th>Demande 7j</th>
+                <th>Demande {horizonJours}j</th>
                 <th>Stock secu.</th>
                 <th>Qte</th>
                 <th>P.U.</th>
@@ -163,7 +174,7 @@ export function CommandePanel({ commande }: { commande: CommandeResume }) {
               {lignes.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="empty-cell">
-                    Aucune ligne. Lancez le recalcul ML depuis le menu.
+                    Aucune ligne à commander pour ce filtre.
                   </td>
                 </tr>
               ) : (

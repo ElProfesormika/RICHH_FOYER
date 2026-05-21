@@ -6,10 +6,12 @@ export function StocksTable({
   produits,
   stocks,
   onUpdate,
+  horizonJours = 14,
 }: {
   produits: Produit[];
   stocks: StockOverview[];
   onUpdate: (id: number, stock: number) => Promise<void>;
+  horizonJours?: number;
 }) {
   const [search, setSearch] = useState("");
   const [edit, setEdit] = useState<Record<number, string>>({});
@@ -57,7 +59,7 @@ export function StocksTable({
         />
       </div>
       <p className="panel-desc">
-        Correction ponctuelle (inventaire, réception). Les ventes TPE mettent à jour le stock automatiquement.
+        Inventaire ou réception : chaque modification recalcule la prévision et la commande en temps réel.
       </p>
       <div className="panel-scroll" style={{ maxHeight: "50vh" }}>
         <table>
@@ -65,7 +67,7 @@ export function StocksTable({
             <tr>
               <th>Produit</th>
               <th>Stock</th>
-              <th>Demande 7j</th>
+              <th>Demande {horizonJours}j</th>
               <th>Risque</th>
               <th>À commander</th>
               <th></th>
@@ -87,7 +89,7 @@ export function StocksTable({
                       }
                     />
                   </td>
-                  <td>{s?.demande_prevue_7j.toFixed(0) ?? "—"}</td>
+                  <td>{s?.demande_prevue_horizon.toFixed(0) ?? "—"}</td>
                   <td>
                     {s ? <RiskBadge risque={s.risque_rupture} /> : "—"}
                   </td>

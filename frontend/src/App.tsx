@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   api,
   CommandeResume,
+  ConfigMetier,
   DashboardKPI,
   Produit,
   StockOverview,
@@ -45,7 +46,6 @@ export default function App() {
   const { theme, toggle: toggleTheme } = useTheme();
   const [tab, setTab] = useState<Tab>("dashboard");
   const [loading, setLoading] = useState(true);
-  const [running, setRunning] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [dataLoading, setDataLoading] = useState(false);
   const [apiOnline, setApiOnline] = useState(true);
@@ -60,6 +60,9 @@ export default function App() {
   const [ventesLive, setVentesLive] = useState<VenteRecente[]>([]);
   const [commande, setCommande] = useState<CommandeResume | null>(null);
   const [produits, setProduits] = useState<Produit[]>([]);
+  const [config, setConfig] = useState<ConfigMetier | null>(null);
+
+  const horizonJours = config?.horizon_jours ?? kpi?.horizon_jours ?? 14;
 
   const load = useCallback(async (quiet = false) => {
     if (!quiet) setLoading(true);
@@ -74,7 +77,7 @@ export default function App() {
       }
       setDataLoading(false);
 
-      const [k, t, tp, st, al, vl, cmd, prod] = await Promise.all([
+      const [k, t, tp, st, al, vl, cmd, prod, cfg] = await Promise.all([
         api.kpi(),
         api.ventesTrend(120),
         api.topProduits(10),
@@ -83,6 +86,7 @@ export default function App() {
         api.ventesRecentes(15),
         api.commande(),
         api.produits(),
+        api.configMetier(),
       ]);
       setKpi(k);
       setTrend(t);
@@ -92,6 +96,7 @@ export default function App() {
       setVentesLive(vl);
       setCommande(cmd);
       setProduits(prod);
+      setConfig(cfg);
       setLastUpdate(new Date());
     } catch (e) {
       const msg = e instanceof Error ? e.message : "Erreur de chargement";
@@ -113,19 +118,6 @@ export default function App() {
     const t = setInterval(() => load(true), interval);
     return () => clearInterval(t);
   }, [dataLoading, load]);
-
-  const handleRunML = async () => {
-    setRunning(true);
-    setError(null);
-    try {
-      await api.runPipeline();
-      await load();
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur ML");
-    } finally {
-      setRunning(false);
-    }
-  };
 
   const handleStockUpdate = async (id: number, stock: number) => {
     await api.updateStock(id, stock);
@@ -207,17 +199,10 @@ export default function App() {
           <button
             className="btn-secondary btn-block"
             onClick={() => load()}
-            disabled={loading || running}
+            disabled={loading}
           >
             <IconRefresh className="btn-icon" />
             Actualiser
-          </button>
-          <button
-            className="btn-primary btn-block"
-            onClick={handleRunML}
-            disabled={running || !apiOnline}
-          >
-            {running ? "Calcul en cours..." : "Recalculer prévisions"}
           </button>
         </div>
       </aside>
@@ -227,8 +212,9 @@ export default function App() {
           <div>
             <h1>{tabs.find((t) => t.id === tab)?.label}</h1>
             <p className="topbar-sub">
-              Suivi automatique des stocks, prévisions XGBoost, seuil fournisseur
-              400 EUR
+              Prévisions XGBoost sur {horizonJours} jours · stock de sécurité z=
+              {config?.z_service ?? 1.65} · seuil fournisseur{" "}
+              {config?.seuil_fournisseur_eur ?? 400} EUR
             </p>
           </div>
           <div className="topbar-actions">
@@ -269,6 +255,7 @@ export default function App() {
                     compact
                     title="Produits a surveiller"
                     emptyLabel="Aucune alerte stock pour le moment"
+                    horizonJours={horizonJours}
                   />
                   <VentesChart data={trend} top={top} theme={theme} />
                 </div>
@@ -284,29 +271,32 @@ export default function App() {
                     items={filteredStocks}
                     title="Inventaire"
                     emptyLabel="Aucun produit pour ce filtre"
+                    horizonJours={horizonJours}
                   />
                   <div className="section-spacer">
                     <StocksTable
                       produits={produits}
                       stocks={filteredStocks}
                       onUpdate={handleStockUpdate}
+                      horizonJours={horizonJours}
                     />
                   </div>
                 </>
               )}
               {tab === "commande" &&
                 (commande ? (
-                  <CommandePanel commande={commande} />
+                  <CommandePanel
+                    commande={commande}
+                    horizonJours={horizonJours}
+                    zService={config?.z_service}
+                    leadTimeJours={config?.lead_time_jours}
+                  />
                 ) : (
                   <div className="panel empty-panel">
-                    <p>Aucune commande calculée.</p>
-                    <button
-                      className="btn-primary"
-                      onClick={handleRunML}
-                      disabled={running}
-                    >
-                      Générer la commande
-                    </button>
+                    <p>
+                      Aucune commande suggérée pour le moment. Enregistrez une
+                      vente ou ajustez un stock pour recalculer automatiquement.
+                    </p>
                   </div>
                 ))}
             </>

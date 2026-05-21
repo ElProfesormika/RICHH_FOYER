@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import Base, engine
-from app.routers import dashboard, ml, produits, ventes
+from app.routers import config_api, dashboard, import_router, ml, produits, ventes
 
 logger = logging.getLogger(__name__)
 _init_lock = threading.Lock()
@@ -22,14 +22,25 @@ def _background_init():
 
     from app.database import SessionLocal
     from app.models import Produit
+    from app import models_appdb  # noqa: F401 — tables miroir
+    from app.config import settings
+    from app.services.import_app_db import import_app_db
     from app.services.import_data import import_csv
     from app.services.ml_pipeline import run_full_pipeline
 
     db = SessionLocal()
     try:
-        if db.query(Produit).count() == 0:
-            logger.info("Import CSV + pipeline ML en arrière-plan…")
-            import_csv(db)
+        need_import = (
+            db.query(Produit).count() == 0
+            or settings.force_reimport
+        )
+        if need_import:
+            if settings.import_source == "app_db":
+                logger.info("Import app_db.sql + pipeline ML en arrière-plan…")
+                import_app_db(db, clear_existing=settings.force_reimport)
+            else:
+                logger.info("Import CSV + pipeline ML en arrière-plan…")
+                import_csv(db)
             run_full_pipeline(db)
         _init_status["ready"] = True
         logger.info("Initialisation terminée.")
@@ -43,7 +54,11 @@ def _background_init():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    from app import models_appdb  # noqa: F401
+    from app.migrate import run_migrations
+
     Base.metadata.create_all(bind=engine)
+    run_migrations()
     threading.Thread(target=_background_init, daemon=True).start()
     yield
 
@@ -63,6 +78,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(config_api.router)
+app.include_router(import_router.router)
 app.include_router(dashboard.router)
 app.include_router(produits.router)
 app.include_router(ventes.router)

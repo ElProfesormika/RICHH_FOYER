@@ -4,8 +4,11 @@ from fastapi import HTTPException
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 
-from app.ml.forecast import rupture_risk
-from app.models import Prevision, Produit, Vente, VenteJournaliere
+from app.models import Prevision
+
+from app.models import Produit, Vente, VenteJournaliere
+from app.models_appdb import AppStock
+from app.services.ml_pipeline import refresh_after_stock_change
 
 
 def enregistrer_vente(
@@ -30,6 +33,16 @@ def enregistrer_vente(
     today = now.date()
 
     produit.stock_actuel -= quantite
+
+    if produit.code_article:
+        metro = (
+            db.query(AppStock)
+            .filter(AppStock.code_article == produit.code_article)
+            .first()
+        )
+        if metro:
+            factor = produit.debit_factor or 1.0
+            metro.quantite = max(0.0, metro.quantite - quantite * factor)
 
     db.add(
         Vente(
@@ -60,21 +73,16 @@ def enregistrer_vente(
             )
         )
 
+    refresh_after_stock_change(db, produit_id)
+    db.commit()
+    db.refresh(produit)
+
     prev = (
         db.query(Prevision)
         .filter(Prevision.produit_id == produit_id)
         .order_by(desc(Prevision.id))
         .first()
     )
-    if prev:
-        prev.risque_rupture = rupture_risk(
-            produit.stock_actuel,
-            prev.demande_prevue,
-            prev.stock_securite,
-        )
-
-    db.commit()
-    db.refresh(produit)
 
     return {
         "produit_id": produit.id,

@@ -6,6 +6,8 @@ from pydantic import BaseModel
 class ProduitOut(BaseModel):
     id: int
     nom: str
+    code_article: str | None = None
+    type_produit: str | None = None
     prix_vente_ttc: float
     prix_achat: float
     stock_actuel: int
@@ -31,6 +33,7 @@ class DashboardKPI(BaseModel):
     seuil_fournisseur: float
     seuil_atteint: bool
     alertes_stock: int
+    horizon_jours: int
 
 
 class PrevisionOut(BaseModel):
@@ -82,7 +85,7 @@ class StockOverviewOut(BaseModel):
     produit_nom: str
     stock_actuel: int
     prix_vente_ttc: float
-    demande_prevue_7j: float
+    demande_prevue_horizon: float
     stock_securite: float
     qte_commande_suggeree: int
     risque_rupture: str

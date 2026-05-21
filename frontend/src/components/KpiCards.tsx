@@ -20,6 +20,12 @@ export function KpiCards({ kpi }: { kpi: DashboardKPI }) {
       ok: kpi.seuil_atteint,
     },
     {
+      label: "Prévision",
+      value: `${kpi.horizon_jours} jours`,
+      sub: "Horizon demande (XGBoost)",
+      small: true,
+    },
+    {
       label: "Historique",
       value: `${kpi.total_ventes.toLocaleString("fr-FR")} ventes`,
       sub: `${formatDate(kpi.periode_debut)} → ${formatDate(kpi.periode_fin)}`,

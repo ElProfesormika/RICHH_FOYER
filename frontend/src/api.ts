@@ -13,6 +13,17 @@ export interface DashboardKPI {
   seuil_fournisseur: number;
   seuil_atteint: boolean;
   alertes_stock: number;
+  horizon_jours: number;
+}
+
+export interface ConfigMetier {
+  horizon_jours: number;
+  z_service: number;
+  lead_time_jours: number;
+  seuil_fournisseur_eur: number;
+  prix_achat_ratio: number;
+  stock_init_jours: number;
+  stock_plancher: number;
 }
 
 export interface VenteTrendPoint {
@@ -41,7 +52,7 @@ export interface StockOverview {
   produit_nom: string;
   stock_actuel: number;
   prix_vente_ttc: number;
-  demande_prevue_7j: number;
+  demande_prevue_horizon: number;
   stock_securite: number;
   qte_commande_suggeree: number;
   risque_rupture: string;
@@ -89,6 +100,8 @@ export interface CommandeResume {
 export interface Produit {
   id: number;
   nom: string;
+  code_article?: string | null;
+  type_produit?: string | null;
   prix_vente_ttc: number;
   prix_achat: number;
   stock_actuel: number;
@@ -174,6 +187,7 @@ export async function fetchHealth(): Promise<HealthResponse> {
 
 export const api = {
   health: fetchHealth,
+  configMetier: () => fetchJson<ConfigMetier>(`${API}/config/metier`),
   kpi: () => fetchJson<DashboardKPI>(`${API}/dashboard/kpi`),
   stocksOverview: (alertesOnly = false) =>
     fetchJson<StockOverview[]>(
@@ -200,6 +214,4 @@ export const api = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ stock_actuel: stock }),
     }),
-  runPipeline: () =>
-    fetchJson<Record<string, unknown>>(`${API}/ml/run`, { method: "POST" }),
 };

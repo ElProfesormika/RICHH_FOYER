@@ -15,10 +15,13 @@ def build_order_lines(
     rows = []
 
     for p in produits:
-        ss = compute_safety_stock(
-            p.get("sigma", 0),
-            p.get("delai", settings.lead_time_days),
-        )
+        if p.get("stock_securite") is not None:
+            ss = float(p["stock_securite"])
+        else:
+            ss = compute_safety_stock(
+                p.get("sigma", 0),
+                p.get("delai", settings.lead_time_days),
+            )
         d = p["demande_prevue"]
         s = p["stock"]
         qte = max(0, int(np.ceil(d + ss - s)))
