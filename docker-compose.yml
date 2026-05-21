@@ -23,13 +23,13 @@ services:
       DATABASE_URL: postgresql://foyer:foyer_secret@db:5432/foyer_stock
       APP_DB_SQL_PATH: /data/app_db.sql
       IMPORT_SOURCE: app_db
-      CSV_PATH: /data/Rapport vente.csv
+      CSV_PATH: /data/rapport_vente.csv
       SEUIL_FOURNISSEUR: "400"
       LEAD_TIME_DAYS: "3"
       SERVICE_LEVEL_Z: "1.65"
       FORECAST_HORIZON_DAYS: "14"
     volumes:
-      - ./Rapport vente.csv:/data/Rapport vente.csv:ro
+      - ./Rapport vente.csv:/data/rapport_vente.csv:ro
       - ./app_db.sql:/data/app_db.sql:ro
     depends_on:
       db:

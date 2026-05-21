@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.config import settings
 from app.database import Base, engine
 from app.routers import config_api, dashboard, import_router, ml, produits, ventes
 
@@ -64,7 +65,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Foyer — Gestion stocks & commandes",
+    title="Foyer_UTT — Gestion stocks & commandes",
     description="Prévision XGBoost et aide à la commande",
     version="1.0.0",
     lifespan=lifespan,
@@ -72,7 +73,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=settings.cors_origin_list,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -84,6 +85,15 @@ app.include_router(dashboard.router)
 app.include_router(produits.router)
 app.include_router(ventes.router)
 app.include_router(ml.router)
+
+
+@app.get("/")
+def root():
+    return {
+        "app": "Foyer_UTT",
+        "docs": "/docs",
+        "health": "/api/health",
+    }
 
 
 @app.get("/api/health")

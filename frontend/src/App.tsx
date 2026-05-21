@@ -158,7 +158,7 @@ export default function App() {
         <div className="sidebar-brand">
           <IconLogo className="logo-svg" />
           <div>
-            <strong>Foyer</strong>
+            <strong>Foyer_UTT</strong>
             <span>Gestion stocks</span>
           </div>
         </div>

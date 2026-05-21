@@ -1,6 +1,6 @@
 export type Theme = "dark" | "light";
 
-const STORAGE_KEY = "foyer-theme";
+const STORAGE_KEY = "foyer-utt-theme";
 
 export function getStoredTheme(): Theme {
   try {

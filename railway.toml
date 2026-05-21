@@ -1,0 +1,13 @@
+# Service API — définir « Root Directory » vide (racine du repo) dans Railway
+# Dockerfile : backend/Dockerfile (contexte = racine → inclut app_db.sql)
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "backend/Dockerfile"
+watchPatterns = ["backend/**", "app_db.sql", "Rapport vente.csv"]
+
+[deploy]
+healthcheckPath = "/api/health"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+numReplicas = 1

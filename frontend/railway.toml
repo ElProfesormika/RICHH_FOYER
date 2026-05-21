@@ -1,0 +1,10 @@
+# Service Web — définir « Root Directory » = frontend dans Railway
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+watchPatterns = ["src/**", "index.html", "package.json"]
+
+[deploy]
+restartPolicyType = "ON_FAILURE"
+numReplicas = 1

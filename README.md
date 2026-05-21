@@ -1,4 +1,4 @@
-# Foyer — Gestion stocks & commandes intelligentes
+# Foyer_UTT — Gestion stocks & commandes intelligentes
 
 Application d'aide à la décision : prévision XGBoost, stocks temps réel, commande fournisseur (seuil 400 EUR).
 
@@ -12,7 +12,13 @@ Application d'aide à la décision : prévision XGBoost, stocks temps réel, com
 
 À l'import, les **stocks Metro réels** (`stock.quantite`) sont appliqués aux produits reliés par code article (~33 articles sur 181). L'historique des ventes vient de `historique_vente` (57 058 lignes).
 
-## Démarrage
+## Déploiement Railway (production)
+
+Guide complet : **[DEPLOY-RAILWAY.md](./DEPLOY-RAILWAY.md)**
+
+Résumé : 3 services (Postgres + API à la racine du repo + frontend dans `frontend/`), variables dans `.env.railway.example`.
+
+## Démarrage local
 
 ### Terminal 1 — PostgreSQL
 

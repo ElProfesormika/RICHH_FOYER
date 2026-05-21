@@ -1,10 +1,13 @@
-from pydantic_settings import BaseSettings
+from pydantic import field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
     database_url: str = "postgresql://foyer:foyer_secret@localhost:5432/foyer_stock"
-    app_db_sql_path: str = "/home/el-professor/Bureau/Rich/app_db.sql"
-    csv_path: str = "/home/el-professor/Bureau/Rich/Rapport vente.csv"
+    app_db_sql_path: str = "/data/app_db.sql"
+    csv_path: str = "/data/Rapport vente.csv"
     import_source: str = "app_db"  # app_db | csv
     force_reimport: bool = False
     seuil_fournisseur: float = 400.0
@@ -12,9 +15,31 @@ class Settings(BaseSettings):
     service_level_z: float = 1.65
     forecast_horizon_days: int = 14
     min_history_days: int = 60
+    cors_origins: str = "*"
+    frontend_url: str | None = None
 
-    class Config:
-        env_file = ".env"
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def normalize_database_url(cls, v: str) -> str:
+        if isinstance(v, str) and v.startswith("postgres://"):
+            return v.replace("postgres://", "postgresql://", 1)
+        return v
+
+    @property
+    def cors_origin_list(self) -> list[str]:
+        if self.cors_origins.strip() == "*":
+            origins: list[str] = ["*"]
+        else:
+            origins = [
+                o.strip()
+                for o in self.cors_origins.split(",")
+                if o.strip()
+            ]
+        if self.frontend_url:
+            url = self.frontend_url.rstrip("/")
+            if url not in origins and "*" not in origins:
+                origins.append(url)
+        return origins or ["*"]
 
 
 settings = Settings()
