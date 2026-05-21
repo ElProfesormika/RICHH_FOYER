@@ -67,11 +67,17 @@ export function StockGrid({
                 </div>
                 <div className="stock-card-foot">
                   <span>{item.jours_couverture} j. couverture</span>
-                  {item.qte_commande_suggeree > 0 && (
-                    <span className="cmd-hint">
-                      +{item.qte_commande_suggeree} à commander
-                    </span>
-                  )}
+                  <span
+                    className={
+                      item.qte_commande_suggeree > 0
+                        ? "cmd-hint"
+                        : "cmd-hint cmd-hint-zero"
+                    }
+                  >
+                    {item.qte_commande_suggeree > 0
+                      ? `+${item.qte_commande_suggeree} à commander`
+                      : "Rien à commander"}
+                  </span>
                 </div>
               </article>
             );

@@ -29,6 +29,50 @@ def _latest_previsions(db: Session) -> dict[int, Prevision]:
     return {p.produit_id: p for p in rows}
 
 
+def _order_inputs_from_previsions(
+    previsions: dict[int, Prevision],
+    produit_map: dict[int, Produit],
+) -> list[dict]:
+    order_inputs = []
+    for produit_id, prev in previsions.items():
+        produit = produit_map.get(produit_id)
+        if not produit:
+            continue
+        order_inputs.append(
+            {
+                "id": produit.id,
+                "nom": produit.nom,
+                "stock": produit.stock_actuel,
+                "prix_achat": resolve_prix_achat(
+                    float(produit.prix_achat),
+                    float(produit.prix_vente_ttc),
+                ),
+                "demande_prevue": float(prev.demande_prevue),
+                "stock_securite": float(prev.stock_securite),
+                "sigma": 0,
+                "delai": produit.delai_fournisseur_jours,
+                "mae": float(prev.mae) if prev.mae is not None else None,
+            }
+        )
+    return order_inputs
+
+
+def build_qte_commande_map(db: Session) -> dict[int, int]:
+    """Qté à commander par produit (même calcul que l'onglet Commande)."""
+    previsions = _latest_previsions(db)
+    if not previsions:
+        return {}
+    produit_map = {p.id: p for p in db.query(Produit).all()}
+    order_inputs = _order_inputs_from_previsions(previsions, produit_map)
+    if not order_inputs:
+        return {}
+    order_df, _, _ = build_order_lines(order_inputs)
+    return {
+        int(row["produit_id"]): int(row["qte_commande"])
+        for _, row in order_df.iterrows()
+    }
+
+
 def _ligne_from_row(row, produit: Produit, prev: Prevision) -> CommandeLigneOut:
     demande = float(row["demande_prevue"])
     ss = float(row["stock_securite"])
@@ -78,29 +122,7 @@ def build_commande_resume(db: Session) -> CommandeResumeOut:
         )
 
     produit_map = {p.id: p for p in db.query(Produit).all()}
-    order_inputs = []
-
-    for produit_id, prev in previsions.items():
-        produit = produit_map.get(produit_id)
-        if not produit:
-            continue
-        order_inputs.append(
-            {
-                "id": produit.id,
-                "nom": produit.nom,
-                "stock": produit.stock_actuel,
-                "prix_achat": resolve_prix_achat(
-                    float(produit.prix_achat),
-                    float(produit.prix_vente_ttc),
-                ),
-                "demande_prevue": float(prev.demande_prevue),
-                "stock_securite": float(prev.stock_securite),
-                "sigma": 0,
-                "delai": produit.delai_fournisseur_jours,
-                "mae": float(prev.mae) if prev.mae is not None else None,
-            }
-        )
-
+    order_inputs = _order_inputs_from_previsions(previsions, produit_map)
     order_df, montant_total, seuil_atteint = build_order_lines(order_inputs)
 
     lignes: list[CommandeLigneOut] = []

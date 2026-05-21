@@ -421,6 +421,35 @@
 
 .cmd-hint {
   color: var(--accent);
+  font-weight: 600;
+}
+
+.cmd-hint-zero {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.cell-cmd-qte {
+  font-weight: 700;
+  color: var(--accent);
+  text-align: center;
+}
+
+.cell-cmd-zero {
+  color: var(--muted);
+  text-align: center;
+}
+
+.cell-cmd-na {
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+.stocks-table-tfoot td {
+  background: color-mix(in srgb, var(--accent) 8%, var(--card));
+  font-weight: 600;
+  border-top: 2px solid var(--border);
 }
 
 /* Sale form */

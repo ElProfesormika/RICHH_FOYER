@@ -290,6 +290,7 @@ export default function App() {
                     <StocksTable
                       produits={produits}
                       stocks={filteredStocks}
+                      commande={commande}
                       onUpdate={handleStockUpdate}
                       horizonJours={horizonJours}
                       filterLabel={

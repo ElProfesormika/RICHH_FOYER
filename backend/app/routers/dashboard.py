@@ -6,7 +6,8 @@ from sqlalchemy.orm import Session
 
 from app.config import settings
 from app.database import get_db
-from app.models import CommandeSuggestion, Prevision, Produit, Vente, VenteJournaliere
+from app.models import Prevision, Produit, Vente, VenteJournaliere
+from app.services.commande_resume import build_qte_commande_map
 from app.services.ml_status import get_ml_status
 from app.schemas import (
     DashboardKPI,
@@ -35,31 +36,6 @@ def _latest_previsions(db: Session) -> dict[int, Prevision]:
         .all()
     )
     return {p.produit_id: p for p in rows}
-
-
-def _latest_commande_date(db: Session):
-    return db.query(func.max(CommandeSuggestion.date_calcul)).scalar()
-
-
-def _latest_commandes(db: Session) -> dict[int, CommandeSuggestion]:
-    latest = _latest_commande_date(db)
-    if not latest:
-        return {}
-    subq = (
-        db.query(
-            CommandeSuggestion.produit_id,
-            func.max(CommandeSuggestion.id).label("max_id"),
-        )
-        .filter(CommandeSuggestion.date_calcul == latest)
-        .group_by(CommandeSuggestion.produit_id)
-        .subquery()
-    )
-    rows = (
-        db.query(CommandeSuggestion)
-        .join(subq, CommandeSuggestion.id == subq.c.max_id)
-        .all()
-    )
-    return {c.produit_id: c for c in rows}
 
 
 @router.get("/kpi", response_model=DashboardKPI)
@@ -118,12 +94,11 @@ def stocks_overview(
     risque: str | None = Query(None),
 ):
     previsions = _latest_previsions(db)
-    commandes = _latest_commandes(db)
+    qte_map = build_qte_commande_map(db)
     result: list[StockOverviewOut] = []
 
     for p in db.query(Produit).order_by(Produit.nom).all():
         prev = previsions.get(p.id)
-        cmd = commandes.get(p.id)
 
         demande = float(prev.demande_prevue) if prev else 0.0
         ss = float(prev.stock_securite) if prev else 0.0
@@ -132,6 +107,7 @@ def stocks_overview(
         couverture = (
             round(p.stock_actuel / (demande / horizon), 1) if demande > 0 else 99.0
         )
+        qte_cmd = qte_map.get(p.id, 0) if prev else 0
 
         if alertes_only and risque_val not in ("critique", "eleve", "moyen"):
             continue
@@ -146,7 +122,7 @@ def stocks_overview(
                 prix_vente_ttc=p.prix_vente_ttc,
                 demande_prevue_horizon=demande,
                 stock_securite=ss,
-                qte_commande_suggeree=cmd.qte_commande if cmd else 0,
+                qte_commande_suggeree=qte_cmd,
                 risque_rupture=risque_val,
                 jours_couverture=min(couverture, 99.0),
             )
