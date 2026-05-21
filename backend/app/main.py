@@ -140,6 +140,8 @@ app.include_router(ml.router)
 def root():
     return {
         "app": "Foyer_UTT",
+        "message": "API backend — ouvrez l'URL du service FRONTEND dans le navigateur.",
+        "frontend_url": settings.frontend_url,
         "docs": "/docs",
         "health": "/api/health",
         "live": "/api/health/live",

@@ -79,14 +79,24 @@ curl -X POST https://VOTRE-API.up.railway.app/api/import/app-db
 
 Ou temporairement `FORCE_REIMPORT=true` sur l’API puis redéployer.
 
-## 7. CLI Railway (optionnel)
+## 7. CLI Railway (recommandé — terminal)
 
 ```bash
-npm i -g @railway/cli
-railway login
-cd /chemin/vers/Rich
-railway link
-railway up --service api
+cd /home/el-professor/Bureau/Rich
+railway login          # une fois — ouvre le navigateur
+./setup-railway.sh     # Postgres + variables + déploiement
+```
+
+Script rapide si le projet existe déjà :
+
+```bash
+./railway-link-db.sh   # DATABASE_URL + VITE_API_BASE_URL + redeploy API
+```
+
+Vérifier les noms de services dans Railway (par défaut : `Postgres`, `api`, `frontend`) :
+
+```bash
+export PG_SERVICE=Postgres API_SERVICE=api WEB_SERVICE=frontend
 ```
 
 ## Dépannage

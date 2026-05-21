@@ -1,6 +1,20 @@
-/** En dev : http://127.0.0.1:8000/api via .env.development — sinon proxy /api */
-const API =
-  import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") || "/api";
+declare global {
+  interface Window {
+    __FOYER_API_BASE__?: string;
+  }
+}
+
+function resolveApiBase(): string {
+  const runtime = typeof window !== "undefined" ? window.__FOYER_API_BASE__ : "";
+  if (runtime && runtime.trim()) {
+    return runtime.replace(/\/$/, "");
+  }
+  const fromEnv = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "");
+  return fromEnv || "/api";
+}
+
+/** Dev : .env.development — Railway : config.js généré au démarrage du conteneur */
+const API = resolveApiBase();
 
 export interface DashboardKPI {
   total_produits: number;
