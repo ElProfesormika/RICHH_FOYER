@@ -100,9 +100,17 @@ class CommandeResumeOut(BaseModel):
     seuil_atteint: bool
     date_calcul: datetime | None
     nb_lignes: int = 0
+    """Produits avec prévision sur l'horizon (toutes lignes)."""
+    nb_produits_prevision: int = 0
+    """Lignes avec quantité à commander > 0."""
+    nb_lignes_a_commander: int = 0
     nb_unites_total: int = 0
     horizon_jours: int = 14
     reference_commande: str | None = None
+    """Somme des prévisions ventes sur l'horizon (unités)."""
+    demande_cumul_14j: float = 0.0
+    """Somme des besoins D + SS (unités)."""
+    besoin_cumul_14j: float = 0.0
 
 
 class VenteTrendPoint(BaseModel):

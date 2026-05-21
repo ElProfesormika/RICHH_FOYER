@@ -1,11 +1,12 @@
 import { CommandeResume } from "../api";
+import { commandeTotaux, fmtEur, lignesExportCommande } from "./commandeTotals";
 
 function fmtDate(iso: string | null | undefined): string {
   if (!iso) return "";
   return new Date(iso).toLocaleString("fr-FR");
 }
 
-/** Export CSV complet (toutes les lignes) avec en-tête Foyer_UTT. */
+/** Export CSV — commande consolidée (cumul prévisions 14 j) + détail lignes. */
 export function exportCommandeCsv(
   commande: CommandeResume,
   horizonJours: number
@@ -15,78 +16,64 @@ export function exportCommandeCsv(
     ? new Date(commande.date_calcul).toISOString().slice(0, 10)
     : new Date().toISOString().slice(0, 10);
   const filename = `commande-foyer-utt-${ref}-${date}.csv`;
+  const t = commandeTotaux(commande);
+  const exportLignes = lignesExportCommande(commande.lignes);
 
   const meta: string[][] = [
-    ["Foyer_UTT — Commande fournisseur suggérée"],
-    ["Référence", ref],
+    ["Foyer_UTT — Commande fournisseur consolidée"],
+    [
+      "Description",
+      `Cumul des prévisions sur ${horizonJours} jours — détail par produit`,
+    ],
+    ["Référence commande", ref],
     ["Date calcul", fmtDate(commande.date_calcul)],
     ["Horizon prévision (jours)", String(horizonJours)],
-    ["Nombre de lignes", String(commande.nb_lignes ?? commande.lignes.length)],
-    ["Unités commandées", String(commande.nb_unites_total ?? 0)],
-    ["Montant total HT (EUR)", commande.montant_total.toFixed(2)],
+    ["Prévision cumulée (unités ventes estimées)", t.demandeCumul14j.toFixed(2)],
+    ["Besoin cumulé D+SS (unités)", t.besoinCumul14j.toFixed(2)],
+    ["Produits avec prévision 14j", String(t.nbProduitsPrevision)],
+    ["Produits à commander (qté > 0)", String(t.nbLignesACommander)],
+    ["Quantité totale à commander (unités)", String(t.nbUnites)],
+    ["Montant total commande HT (EUR)", fmtEur(t.montantTotal)],
     ["Seuil fournisseur (EUR)", String(commande.seuil_fournisseur)],
-    ["Seuil atteint", commande.seuil_atteint ? "oui" : "non (R min)"],
+    [
+      "Seuil atteint",
+      commande.seuil_atteint ? "oui" : "non (ajustement R min)",
+    ],
+    [],
+    ["=== DÉTAIL DES LIGNES DE COMMANDE ==="],
     [],
   ];
 
   const headers = [
-    "Reference",
+    "N°",
+    "Nom_produit",
     "Code_article",
-    "Produit",
-    "Stock_actuel",
-    "Stock_commande",
-    `Demande_${horizonJours}j`,
-    "Stock_securite",
-    "Besoin_D_plus_SS",
-    "Qte_commande",
-    "Prix_achat_EUR",
-    "Prix_vente_TTC_EUR",
-    "Montant_ligne_EUR",
-    "Modele_prevision",
-    "MAE",
-    "Risque_rupture",
+    `Prevision_cumul_${horizonJours}j_unites`,
+    "Quantite_a_commander",
+    "Prix_unitaire_HT_EUR",
+    "Total_ligne_HT_EUR",
   ];
 
-  const rows = commande.lignes.map((l) => [
-    ref,
-    l.code_article ?? "",
-    l.produit_nom,
-    String(l.stock_actuel),
-    String(l.stock_commande ?? l.stock_actuel),
-    l.demande_prevue.toFixed(2),
-    l.stock_securite.toFixed(2),
-    (l.besoin_total ?? l.demande_prevue + l.stock_securite).toFixed(2),
-    String(l.qte_commande),
-    l.prix_achat.toFixed(2),
-    (l.prix_vente_ttc ?? 0).toFixed(2),
-    l.montant.toFixed(2),
-    l.modele_prevision ?? "",
-    l.mae != null ? l.mae.toFixed(2) : "",
-    l.risque_rupture,
+  const rows = exportLignes.map((l) => [
+    String(l.numero),
+    l.nom,
+    l.code,
+    l.prevision14j.toFixed(2),
+    String(l.quantite),
+    l.prixUnitaire.toFixed(2),
+    l.total.toFixed(2),
   ]);
-
-  const totalUnits =
-    commande.nb_unites_total ??
-    commande.lignes.reduce((s, l) => s + l.qte_commande, 0);
 
   const footer: string[][] = [
     [],
     [
       "",
+      "TOTAL COMMANDE",
       "",
-      "TOTAL",
+      t.demandeCumul14j.toFixed(2),
+      String(t.nbUnites),
       "",
-      "",
-      "",
-      "",
-      "",
-      String(totalUnits),
-      "",
-      "",
-      commande.montant_total.toFixed(2),
-      "",
-      "",
-      "",
+      fmtEur(t.montantTotal),
     ],
   ];
 

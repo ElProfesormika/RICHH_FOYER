@@ -141,9 +141,15 @@ export interface CommandeResume {
   seuil_atteint: boolean;
   date_calcul: string | null;
   nb_lignes?: number;
+  nb_produits_prevision?: number;
+  nb_lignes_a_commander?: number;
   nb_unites_total?: number;
   horizon_jours?: number;
   reference_commande?: string | null;
+  /** Somme des prévisions ventes sur l'horizon (unités). */
+  demande_cumul_14j?: number;
+  /** Somme des besoins D + SS (unités). */
+  besoin_cumul_14j?: number;
 }
 
 export interface Produit {

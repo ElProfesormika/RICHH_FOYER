@@ -1,6 +1,7 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { CommandeResume } from "../api";
+import { commandeTotaux, fmtEur, lignesExportCommande } from "./commandeTotals";
 
 function fmtDate(iso: string | null | undefined): string {
   if (!iso) return "—";
@@ -13,7 +14,7 @@ function fmtDate(iso: string | null | undefined): string {
   });
 }
 
-/** Facture / bon de commande PDF — en-tête Foyer_UTT. */
+/** Facture PDF — commande consolidée (cumul 14 j) : nom, qté, P.U., total. */
 export function exportCommandePdf(
   commande: CommandeResume,
   horizonJours: number
@@ -23,63 +24,94 @@ export function exportCommandePdf(
   const dateSlug = commande.date_calcul
     ? new Date(commande.date_calcul).toISOString().slice(0, 10)
     : new Date().toISOString().slice(0, 10);
+  const t = commandeTotaux(commande);
+  const exportLignes = lignesExportCommande(commande.lignes);
 
   const margin = 14;
   let y = 18;
 
   doc.setFillColor(30, 58, 95);
-  doc.rect(0, 0, 210, 32, "F");
+  doc.rect(0, 0, 210, 36, "F");
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(22);
   doc.setFont("helvetica", "bold");
   doc.text("Foyer_UTT", margin, y);
   doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
-  doc.text("Bon de commande fournisseur (suggéré)", margin, y + 8);
+  doc.text("Commande fournisseur — cumul prévisions", margin, y + 8);
+  doc.setFontSize(9);
+  doc.text(
+    `Consolidation sur ${horizonJours} jours (XGBoost + stock de sécurité)`,
+    margin,
+    y + 14
+  );
 
   doc.setTextColor(40, 40, 40);
-  y = 42;
+  y = 46;
   doc.setFontSize(10);
   doc.text(`Référence : ${ref}`, margin, y);
-  doc.text(`Date du calcul : ${fmtDate(commande.date_calcul)}`, margin, y + 6);
-  doc.text(
-    `Horizon prévision : ${horizonJours} jours · Prévisions XGBoost + stock de sécurité`,
-    margin,
-    y + 12
-  );
-
-  const nbLignes = commande.nb_lignes ?? commande.lignes.length;
-  const nbUnites =
-    commande.nb_unites_total ??
-    commande.lignes.reduce((s, l) => s + l.qte_commande, 0);
+  doc.text(`Date : ${fmtDate(commande.date_calcul)}`, margin, y + 6);
 
   doc.setFont("helvetica", "bold");
-  doc.text(
-    `${nbLignes} produit${nbLignes > 1 ? "s" : ""} · ${nbUnites} unités · ${commande.montant_total.toFixed(2)} EUR HT`,
-    margin,
-    y + 20
-  );
+  doc.text("Récapitulatif commande", margin, y + 14);
   doc.setFont("helvetica", "normal");
+  const recap = [
+    [
+      `Prévision cumulée (${horizonJours} j)`,
+      `${Math.round(t.demandeCumul14j)} unités`,
+    ],
+    ["Quantité totale à commander", `${t.nbUnites} unités`],
+    ["Produits avec prévision 14j", `${t.nbProduitsPrevision}`],
+    ["Produits à commander (qté > 0)", `${t.nbLignesACommander}`],
+    ["Montant total HT", `${fmtEur(t.montantTotal)} EUR`],
+  ];
+  autoTable(doc, {
+    startY: y + 18,
+    body: recap,
+    theme: "plain",
+    margin: { left: margin, right: margin },
+    styles: { fontSize: 9, cellPadding: 1.5 },
+    columnStyles: { 0: { fontStyle: "bold", cellWidth: 70 }, 1: { halign: "right" } },
+  });
 
-  const body = commande.lignes.map((l) => [
-    l.code_article ?? "—",
-    l.produit_nom.length > 42 ? `${l.produit_nom.slice(0, 40)}…` : l.produit_nom,
-    String(l.qte_commande),
-    `${l.prix_achat.toFixed(2)}`,
-    `${l.montant.toFixed(2)}`,
+  const recapEnd =
+    (doc as jsPDF & { lastAutoTable?: { finalY: number } }).lastAutoTable
+      ?.finalY ?? y + 40;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
+  doc.text("Détail des lignes", margin, recapEnd + 8);
+
+  const body = exportLignes.map((l) => [
+    String(l.numero),
+    l.nom.length > 38 ? `${l.nom.slice(0, 36)}…` : l.nom,
+    String(Math.round(l.prevision14j)),
+    String(l.quantite),
+    fmtEur(l.prixUnitaire),
+    fmtEur(l.total),
   ]);
 
   autoTable(doc, {
-    startY: y + 26,
-    head: [["Réf. Metro", "Produit", "Qté", "P.U. HT (€)", "Montant HT (€)"]],
+    startY: recapEnd + 12,
+    head: [
+      [
+        "N°",
+        "Nom du produit",
+        `Prév. ${horizonJours}j`,
+        "Qté",
+        "P.U. HT",
+        "Total HT",
+      ],
+    ],
     body,
     foot: [
       [
         "",
-        "TOTAL",
-        String(nbUnites),
+        "TOTAL COMMANDE",
+        String(Math.round(t.demandeCumul14j)),
+        String(t.nbUnites),
         "",
-        commande.montant_total.toFixed(2),
+        fmtEur(t.montantTotal),
       ],
     ],
     margin: { left: margin, right: margin },
@@ -95,39 +127,34 @@ export function exportCommandePdf(
       fontStyle: "bold",
     },
     columnStyles: {
-      0: { cellWidth: 22 },
-      2: { halign: "right", cellWidth: 14 },
-      3: { halign: "right", cellWidth: 22 },
-      4: { halign: "right", cellWidth: 28 },
+      0: { cellWidth: 10, halign: "center" },
+      2: { halign: "right", cellWidth: 18 },
+      3: { halign: "right", cellWidth: 14 },
+      4: { halign: "right", cellWidth: 22 },
+      5: { halign: "right", cellWidth: 24 },
     },
   });
 
   const finalY =
     (doc as jsPDF & { lastAutoTable?: { finalY: number } }).lastAutoTable
-      ?.finalY ?? y + 80;
+      ?.finalY ?? recapEnd + 80;
 
   let footY = finalY + 10;
   doc.setFontSize(9);
   doc.setTextColor(80, 80, 80);
+  doc.setFont("helvetica", "normal");
   doc.text(
-    `Seuil fournisseur : ${commande.seuil_fournisseur} EUR — ${
-      commande.seuil_atteint
-        ? "seuil atteint"
-        : "montant ajusté (règle R min)"
-    }`,
+    `Qté commandée = max(0, prévision ${horizonJours}j + stock sécurité − stock). Seuil ${commande.seuil_fournisseur} EUR : ${
+      commande.seuil_atteint ? "atteint" : "ajusté (R min)"
+    }.`,
     margin,
-    footY
+    footY,
+    { maxWidth: 182 }
   );
-  footY += 6;
-  doc.text(
-    "Document généré automatiquement par Foyer_UTT. Les quantités suivent Q = max(0, D + SS − S).",
-    margin,
-    footY
-  );
-  footY += 5;
+  footY += 10;
   doc.setFontSize(8);
   doc.text(
-    "Prix unitaires : prix d'achat estimés (CSV / ratio). À valider avant envoi au fournisseur.",
+    "Document généré par Foyer_UTT. Prévision cumulée = somme des ventes estimées sur l'horizon.",
     margin,
     footY
   );

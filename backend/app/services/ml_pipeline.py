@@ -127,12 +127,11 @@ def rebuild_commande_suggestions(db: Session) -> dict:
 
     order_df, montant_total, seuil_atteint = build_order_lines(order_inputs)
 
+    now = datetime.utcnow()
     for _, row in order_df.iterrows():
-        if row["qte_commande"] <= 0:
-            continue
         db.add(
             CommandeSuggestion(
-                date_calcul=datetime.utcnow(),
+                date_calcul=now,
                 produit_id=int(row["produit_id"]),
                 qte_commande=int(row["qte_commande"]),
                 montant=float(row["montant"]),
@@ -141,8 +140,11 @@ def rebuild_commande_suggestions(db: Session) -> dict:
             )
         )
 
+    nb_a_commander = int((order_df["qte_commande"] > 0).sum())
     return {
-        "lignes_commande": len(order_df[order_df["qte_commande"] > 0]),
+        "produits_prevision": len(order_df),
+        "lignes_commande": nb_a_commander,
+        "lignes_total_prevision": len(order_df),
         "montant_total": montant_total,
         "seuil_atteint": seuil_atteint,
         "seuil_fournisseur": settings.seuil_fournisseur,

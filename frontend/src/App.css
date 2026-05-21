@@ -831,6 +831,66 @@
   font-weight: 500;
 }
 
+.commande-bon-panel {
+  border: 2px solid color-mix(in srgb, var(--accent) 25%, var(--border));
+}
+
+.commande-bon-table-wrap {
+  max-height: 55vh;
+}
+
+.commande-bon-table {
+  font-size: 0.92rem;
+  width: 100%;
+}
+
+.commande-bon-table th {
+  background: color-mix(in srgb, var(--accent) 10%, var(--card));
+}
+
+.commande-bon-table .cell-produit {
+  min-width: 180px;
+}
+
+.commande-bon-table tr.ligne-sans-commande {
+  opacity: 0.72;
+}
+
+.commande-bon-table tr.ligne-sans-commande .cell-strong {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.commande-filter-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0.75rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.commande-filter-check input {
+  accent-color: var(--accent);
+}
+
+.cell-ref-inline {
+  display: block;
+  font-size: 0.72rem;
+  font-family: ui-monospace, monospace;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+.commande-toggle-tech {
+  margin-bottom: 0.75rem;
+}
+
+.commande-tech-section {
+  margin-top: 0.5rem;
+}
+
 .commande-table-wrap {
   max-height: 65vh;
 }
